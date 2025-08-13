@@ -1,0 +1,7 @@
+This would be a 32x32 ICO file. Since I can't create actual ICO files, you'll need to:
+1. Use the favicon.svg I created, or
+2. Generate favicon files using tools like https://favicon.io/
+3. Use the brand colors (#fe3641 on #171717 background)
+4. Include the morse code pattern from your brand guide
+
+The favicon.svg I created will work for modern browsers.

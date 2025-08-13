@@ -9,7 +9,6 @@ import {
   PlugZap,
   Workflow,
   CheckCircle2,
-  Sparkles,
   Star,
   Users,
   Clock,
@@ -20,7 +19,54 @@ import {
 
 const VIDEO_SRC = "/video/hero.mp4";
 const POSTER_IMG = "/preview.png";
-const CALENDLY_LINK = "https://calendly.com/your-handle/ai-strategy";
+const CALENDLY_LINK = "https://calendly.com/your-handle/ai-strategy-call";
+
+// Structured Data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Kodedit",
+  "url": "https://kodedit.com",
+  "logo": "https://kodedit.com/og-image.png",
+  "description": "AI solutions for small businesses. We provide chatbots, automation, and predictive analytics that save time, reduce costs, and accelerate growth.",
+  "foundingDate": "2024",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-XXX-XXX-XXXX",
+    "contactType": "Customer Service",
+    "email": "hello@kodedit.com"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "US"
+  },
+  "sameAs": [
+    "https://twitter.com/kodedit",
+    "https://linkedin.com/company/kodedit"
+  ],
+  "services": [
+    {
+      "@type": "Service",
+      "name": "AI Chatbots & Customer Service",
+      "description": "24/7 customer support automation with intelligent chatbots"
+    },
+    {
+      "@type": "Service",
+      "name": "Process Automation",
+      "description": "Automate repetitive tasks and workflows for increased efficiency"
+    },
+    {
+      "@type": "Service",
+      "name": "Predictive Analytics",
+      "description": "Data-driven insights and forecasting for better business decisions"
+    },
+    {
+      "@type": "Service",
+      "name": "AI Strategy & Implementation",
+      "description": "Complete AI transformation roadmap and implementation"
+    }
+  ]
+};
 
 export default function KodeditLanding() {
   const [videoComplete, setVideoComplete] = useState(false);
@@ -30,7 +76,13 @@ export default function KodeditLanding() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#0a0a0a] text-white overflow-x-hidden">
+    <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="min-h-screen w-full bg-[#171717] text-white overflow-x-hidden">
       {!videoComplete && (
         <IntroVideo onDone={handleVideoComplete} />
       )}
@@ -52,6 +104,7 @@ export default function KodeditLanding() {
         </motion.div>
       )}
     </div>
+    </>
   )
 }
 
@@ -83,7 +136,7 @@ function IntroVideo({ onDone }: { onDone: () => void }) {
         preload="auto"
         onEnded={onDone}
       />
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#171717]/60 via-transparent to-[#171717]" />
       
       {/* Animated grid overlay */}
       <div className="absolute inset-0 z-5 opacity-20">
@@ -97,8 +150,29 @@ function IntroVideo({ onDone }: { onDone: () => void }) {
           className="flex items-center gap-2"
         >
           <div className="relative">
-            <Sparkles className="h-5 w-5 text-[#fe3641]" />
-            <div className="absolute inset-0 h-5 w-5 bg-[#fe3641] rounded-full blur-sm animate-pulse opacity-30" />
+            <div className="h-5 w-5 text-[#fe3641]">
+              {/* Morse Code Logo Mark */}
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                <rect x="2" y="6" width="4" height="2" rx="1" />
+                <circle cx="8" cy="7" r="1" />
+                <rect x="12" y="6" width="4" height="2" rx="1" />
+                <rect x="18" y="6" width="2" height="2" rx="1" />
+                <rect x="2" y="10" width="2" height="2" rx="1" />
+                <rect x="6" y="10" width="4" height="2" rx="1" />
+                <rect x="12" y="10" width="4" height="2" rx="1" />
+                <rect x="18" y="10" width="2" height="2" rx="1" />
+                <rect x="2" y="14" width="4" height="2" rx="1" />
+                <circle cx="8" cy="15" r="1" />
+                <circle cx="12" cy="15" r="1" />
+                <circle cx="16" cy="15" r="1" />
+                <rect x="20" y="14" width="2" height="2" rx="1" />
+                <rect x="2" y="18" width="2" height="2" rx="1" />
+                <circle cx="6" cy="19" r="1" />
+                <circle cx="10" cy="19" r="1" />
+                <rect x="14" y="18" width="4" height="2" rx="1" />
+              </svg>
+            </div>
+            <div className="absolute inset-0 h-5 w-5 bg-[#fe3641] rounded-sm blur-sm animate-pulse opacity-30" />
           </div>
           <span className="text-sm tracking-tight font-medium">Kodedit</span>
         </motion.div>
@@ -113,7 +187,7 @@ function IntroVideo({ onDone }: { onDone: () => void }) {
           Skip intro
         </motion.button>
       </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-20 bg-gradient-to-b from-transparent to-[#0a0a0a]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-20 bg-gradient-to-b from-transparent to-[#171717]" />
     </section>
   );
 }
@@ -136,8 +210,8 @@ function Header() {
     <motion.header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'backdrop-blur-xl bg-[#0a0a0a]/80 border-b border-white/10' 
-          : 'backdrop-blur-sm bg-[#0a0a0a]/40'
+          ? 'backdrop-blur-xl bg-[#171717]/80 border-b border-white/10' 
+          : 'backdrop-blur-sm bg-[#171717]/40'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -146,23 +220,44 @@ function Header() {
       <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Sparkles className="h-5 w-5 text-[#fe3641]" />
-            <div className="absolute inset-0 h-5 w-5 bg-[#fe3641] rounded-full blur-sm animate-pulse opacity-30" />
+            <div className="h-5 w-5 text-[#fe3641]">
+              {/* Morse Code Logo Mark */}
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                <rect x="2" y="6" width="4" height="2" rx="1" />
+                <circle cx="8" cy="7" r="1" />
+                <rect x="12" y="6" width="4" height="2" rx="1" />
+                <rect x="18" y="6" width="2" height="2" rx="1" />
+                <rect x="2" y="10" width="2" height="2" rx="1" />
+                <rect x="6" y="10" width="4" height="2" rx="1" />
+                <rect x="12" y="10" width="4" height="2" rx="1" />
+                <rect x="18" y="10" width="2" height="2" rx="1" />
+                <rect x="2" y="14" width="4" height="2" rx="1" />
+                <circle cx="8" cy="15" r="1" />
+                <circle cx="12" cy="15" r="1" />
+                <circle cx="16" cy="15" r="1" />
+                <rect x="20" y="14" width="2" height="2" rx="1" />
+                <rect x="2" y="18" width="2" height="2" rx="1" />
+                <circle cx="6" cy="19" r="1" />
+                <circle cx="10" cy="19" r="1" />
+                <rect x="14" y="18" width="4" height="2" rx="1" />
+              </svg>
+            </div>
+            <div className="absolute inset-0 h-5 w-5 bg-[#fe3641] rounded-sm blur-sm animate-pulse opacity-30" />
           </div>
           <span className="text-lg font-bold tracking-tight">Kodedit</span>
         </div>
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm">
           <a href="#services" className="text-zinc-300 hover:text-white transition-colors relative group">
-            Services
+            AI Solutions
             <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#fe3641] group-hover:w-full transition-all duration-300" />
           </a>
           <a href="#outcomes" className="text-zinc-300 hover:text-white transition-colors relative group">
-            Outcomes
+            Benefits
             <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#fe3641] group-hover:w-full transition-all duration-300" />
           </a>
           <a href="#packages" className="text-zinc-300 hover:text-white transition-colors relative group">
-            Packages
+            AI Packages
             <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#fe3641] group-hover:w-full transition-all duration-300" />
           </a>
           <a href="#contact" className="text-zinc-300 hover:text-white transition-colors relative group">
@@ -204,7 +299,7 @@ function Header() {
           pointerEvents: isMobileMenuOpen ? 'auto' : 'none'
         }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className={`absolute top-full left-0 right-0 backdrop-blur-xl bg-[#0a0a0a]/95 border-b border-white/10 md:hidden ${
+        className={`absolute top-full left-0 right-0 backdrop-blur-xl bg-[#171717]/95 border-b border-white/10 md:hidden ${
           isMobileMenuOpen ? 'block' : 'hidden'
         }`}
       >
@@ -214,21 +309,21 @@ function Header() {
             onClick={() => setIsMobileMenuOpen(false)}
             className="block py-3 px-4 text-zinc-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
           >
-            Services
+            AI Solutions
           </a>
           <a 
             href="#outcomes" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="block py-3 px-4 text-zinc-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
           >
-            Outcomes
+            Benefits
           </a>
           <a 
             href="#packages" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="block py-3 px-4 text-zinc-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
           >
-            Packages
+            AI Packages
           </a>
           <a 
             href="#contact" 
@@ -267,7 +362,7 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative w-full overflow-hidden bg-gradient-to-b from-[#0a0a0a] via-[#0f0f0f] to-[#0a0a0a]">
+    <section ref={containerRef} className="relative w-full overflow-hidden bg-gradient-to-b from-[#171717] via-[#1a1a1a] to-[#171717]">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-[#fe3641]/10 rounded-full blur-3xl animate-pulse" />
@@ -297,9 +392,9 @@ function Hero() {
               className="mb-6 inline-flex items-center gap-3"
             >
               <span className="inline-flex h-8 items-center rounded-full border border-[#fe3641]/30 bg-[#fe3641]/10 px-4 text-sm font-medium text-[#fe3641] backdrop-blur">
-                AI Studio
+                AI Solutions
               </span>
-              <span className="text-sm text-white/60 font-medium tracking-wide">Automation • Agents • Analytics</span>
+              <span className="text-sm text-white/60 font-medium tracking-wide">Automation • Intelligence • Growth</span>
             </motion.div>
 
             <motion.h1 
@@ -308,9 +403,9 @@ function Hero() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-tight"
             >
-              Ship AI faster.{" "}
-              <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">
-                Unlock real ROI in weeks.
+              Transform your business with AI.{" "}
+              <span className="bg-gradient-to-r from-[#fe3641] to-[#be0a24] bg-clip-text text-transparent">
+                Start seeing results in weeks.
               </span>
             </motion.h1>
 
@@ -320,7 +415,7 @@ function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="mt-6 text-lg sm:text-xl md:text-2xl text-zinc-300 max-w-3xl leading-relaxed"
             >
-              We design, build, and run practical AI systems—chatbots, automations, and custom integrations—that save time and drive revenue.
+              We help small businesses integrate AI to automate tasks, improve decision-making, and accelerate growth. From chatbots to predictive analytics—unlock AI&apos;s potential without the complexity.
             </motion.p>
 
             <motion.div 
@@ -337,7 +432,7 @@ function Hero() {
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
               >
-                Book a Strategy Call 
+                Book AI Strategy Call 
                 <ArrowRight className="h-5 w-5" />
               </motion.a>
               <motion.a
@@ -346,7 +441,7 @@ function Hero() {
                 href="#services"
                 className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300"
               >
-                Explore Services
+                Explore AI Solutions
               </motion.a>
             </motion.div>
 
@@ -357,10 +452,10 @@ function Hero() {
               className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
             >
               {[
-                { icon: Clock, text: "Avg. 30–60 days to value" },
-                { icon: Shield, text: "Security-first build" },
-                { icon: Star, text: "Fixed-scope or retainer" },
-                { icon: Users, text: "US-based engineering" },
+                { icon: Clock, text: "See results in 2-4 weeks" },
+                { icon: Shield, text: "Secure AI implementation" },
+                { icon: Star, text: "No technical expertise needed" },
+                { icon: Users, text: "Dedicated AI specialists" },
               ].map(({ icon: Icon, text }, i) => (
                 <motion.div 
                   key={text}
@@ -387,7 +482,7 @@ function TrustBar() {
   const logos = ["Company A", "Company B", "Company C", "Company D", "Company E", "Company F"];
   
   return (
-    <section className="bg-[#0a0a0a] border-y border-white/5">
+    <section className="bg-[#171717] border-y border-white/5">
       <div className="mx-auto max-w-7xl px-6 md:px-8 py-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -396,7 +491,7 @@ function TrustBar() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <p className="text-zinc-400 text-sm font-medium">Trusted by teams who value speed and safety</p>
+          <p className="text-zinc-400 text-sm font-medium">Trusted by small businesses embracing AI transformation</p>
           
           <div className="mt-8 relative overflow-hidden">
             <motion.div 
@@ -410,8 +505,8 @@ function TrustBar() {
                 </div>
               ))}
             </motion.div>
-            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10" />
-            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10" />
+            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#171717] to-transparent z-10" />
+            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#171717] to-transparent z-10" />
           </div>
         </motion.div>
       </div>
@@ -425,36 +520,36 @@ function Services() {
   const items = [
     {
       icon: <Bot className="h-8 w-8 text-[#fe3641]" />,
-      title: "AI Agents & Chatbots",
-      desc: "Lead capture, support, and internal copilots with retrieval + tools. Reduce support load and unlock self‑serve sales.",
-      bullets: ["RAG on your docs", "CRM + Slack integrations", "Guardrails & analytics"],
+      title: "AI Chatbots & Customer Service",
+      desc: "24/7 customer support that never sleeps. Reduce response times and handle more inquiries with intelligent chatbots.",
+      bullets: ["Website chat integration", "WhatsApp & SMS automation", "Lead qualification & booking"],
       gradient: "from-blue-500/20 to-purple-500/20"
     },
     {
       icon: <Workflow className="h-8 w-8 text-[#fe3641]" />,
-      title: "Automation & Workflows",
-      desc: "Replace repetitive tasks with LLM‑driven workflows that read, write, and decide—safely.",
-      bullets: ["Email & ticket triage", "Back‑office ops", "Human‑in-the-loop"],
+      title: "Process Automation",
+      desc: "Automate repetitive tasks and workflows. Free up your team's time for high-value activities.",
+      bullets: ["Document processing", "Email & calendar automation", "Inventory management"],
       gradient: "from-green-500/20 to-emerald-500/20"
     },
     {
       icon: <LineChart className="h-8 w-8 text-[#fe3641]" />,
-      title: "Data & Insights",
-      desc: "Turn scattered data into dashboards and plain‑English insights. Decisions, not dashboards for dashboard's sake.",
-      bullets: ["ETL + warehousing", "BI visualization", "KPI alerting"],
+      title: "Predictive Analytics",
+      desc: "Make data-driven decisions with AI insights. Forecast trends, optimize operations, and stay ahead.",
+      bullets: ["Sales forecasting", "Customer behavior analysis", "Inventory optimization"],
       gradient: "from-orange-500/20 to-red-500/20"
     },
     {
       icon: <PlugZap className="h-8 w-8 text-[#fe3641]" />,
-      title: "Custom Integrations",
-      desc: "We wire AI into your stack—Shopify, HubSpot, Zendesk, Airtable, Notion, Stripe, Postgres, and more.",
-      bullets: ["Production‑grade APIs", "Observability", "Security reviews"],
+      title: "AI Strategy & Implementation",
+      desc: "Complete AI transformation roadmap. From strategy to implementation, we guide your AI journey.",
+      bullets: ["AI readiness assessment", "Custom AI solutions", "Team training & support"],
       gradient: "from-purple-500/20 to-pink-500/20"
     },
   ];
 
   return (
-    <section id="services" className="relative bg-gradient-to-b from-[#0a0a0a] to-[#0f0f0f] py-24">
+    <section id="services" className="relative bg-gradient-to-b from-[#171717] to-[#1a1a1a] py-24">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(254,54,65,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(254,54,65,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
       
       <div className="relative mx-auto max-w-7xl px-6 md:px-8">
@@ -466,10 +561,10 @@ function Services() {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-4">
-            Services that <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">pay for themselves</span>
+            AI solutions that <span className="bg-gradient-to-r from-[#fe3641] to-[#be0a24] bg-clip-text text-transparent">grow your business</span>
           </h2>
           <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto px-4">
-            Start small, ship fast, and scale with confidence. Fixed‑scope pilots in 2–4 weeks.
+            Practical AI implementations that save time, reduce costs, and unlock new opportunities for small businesses.
           </p>
         </motion.div>
 
@@ -517,16 +612,16 @@ function Services() {
 
 function Outcomes() {
   const stats = [
-    { label: "Support deflection", value: "30–60%", icon: Users },
-    { label: "Lead response time", value: "< 1 min", icon: Clock },
-    { label: "Ops time saved", value: "10–20 hrs/week", icon: LineChart },
-    { label: "Pilot timeline", value: "2–4 weeks", icon: CheckCircle2 },
+    { label: "Time savings", value: "40+ hours/week", icon: Clock },
+    { label: "Response time", value: "< 30 seconds", icon: CheckCircle2 },
+    { label: "Cost reduction", value: "60% in ops", icon: LineChart },
+    { label: "Customer satisfaction", value: "95%+", icon: Users },
   ];
 
-  const techStack = ["Vercel", "Next.js", "TypeScript", "Postgres", "Stripe", "Supabase", "OpenAI", "Anthropic", "Pinecone"];
+  const techStack = ["OpenAI GPT", "Claude", "Langchain", "Python", "TensorFlow", "Pinecone", "Supabase", "Vercel", "Zapier"];
 
   return (
-    <section id="outcomes" className="relative bg-[#0f0f0f] py-24">
+    <section id="outcomes" className="relative bg-[#1a1a1a] py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <motion.div
@@ -536,10 +631,10 @@ function Outcomes() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-6">
-              Clear outcomes, <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">fast timelines</span>
+              Real AI impact, <span className="bg-gradient-to-r from-[#fe3641] to-[#be0a24] bg-clip-text text-transparent">measurable results</span>
             </h2>
             <p className="text-lg sm:text-xl text-zinc-300 mb-8 sm:mb-10 leading-relaxed">
-              We prioritise measurable ROI: faster responses, fewer tickets, more qualified leads, and hours back to your team. No hype—just outcomes.
+              We deliver AI solutions that provide immediate business value: increased efficiency, cost savings, and competitive advantages that transform how you operate.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10">
@@ -575,7 +670,7 @@ function Outcomes() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
               >
-                See what&apos;s possible <ArrowRight className="h-5 w-5" />
+                See AI case studies <ArrowRight className="h-5 w-5" />
               </motion.a>
             </motion.div>
           </motion.div>
@@ -590,7 +685,7 @@ function Outcomes() {
             <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-6 sm:p-8 backdrop-blur-sm">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-3 w-3 rounded-full bg-[#fe3641]" />
-                <span className="text-zinc-400 font-medium">Example Tech Stack</span>
+                <span className="text-zinc-400 font-medium">AI Tech Stack</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 {techStack.map((tech, i) => (
@@ -624,30 +719,30 @@ function Outcomes() {
 function Packages() {
   const tiers = [
     {
-      name: "Starter Pilot",
-      price: "$1.5k setup + $500/mo",
-      desc: "A tightly‑scoped AI pilot (chatbot or workflow) delivered in 2–3 weeks.",
-      features: ["Discovery + requirements", "Implementation & testing", "Basic analytics", "1 iteration post‑launch"],
+      name: "AI Starter",
+      price: "$2k - $5k",
+      desc: "Perfect first step into AI. Get a simple chatbot or automation tool deployed in 2-3 weeks.",
+      features: ["AI strategy consultation", "Simple chatbot or automation", "Basic training & setup", "2 weeks support"],
       popular: false,
     },
     {
-      name: "Growth",
-      price: "$3k setup + $2k/mo",
-      desc: "Scale a proven use case. Add integrations, analytics, and guardrails.",
-      features: ["Advanced integrations", "Staff training", "SLAs & monitoring", "Monthly improvement sprints"],
+      name: "AI Growth",
+      price: "$5k - $12k",
+      desc: "Comprehensive AI integration across multiple business processes. See significant productivity gains.",
+      features: ["Multiple AI tools", "Process automation", "Team training program", "3 months ongoing support"],
       popular: true,
     },
     {
-      name: "Scale (Custom)",
-      price: "$5k+/mo",
-      desc: "For teams that want AI across customer support, sales, and ops.",
-      features: ["Multi‑agent systems", "Role‑based access", "Security review", "Dedicated support"],
+      name: "AI Enterprise",
+      price: "$12k+",
+      desc: "Complete AI transformation with custom solutions, advanced analytics, and dedicated support.",
+      features: ["Custom AI development", "Predictive analytics", "Advanced integrations", "Dedicated AI consultant"],
       popular: false,
     },
   ];
 
   return (
-    <section id="packages" className="relative bg-gradient-to-b from-[#0f0f0f] to-[#0a0a0a] py-24">
+    <section id="packages" className="relative bg-gradient-to-b from-[#1a1a1a] to-[#171717] py-24">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(254,54,65,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(254,54,65,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
@@ -659,10 +754,10 @@ function Packages() {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-4">
-            Pricing & <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">packages</span>
+            AI Solutions & <span className="bg-gradient-to-r from-[#fe3641] to-[#be0a24] bg-clip-text text-transparent">packages</span>
           </h2>
           <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto px-4">
-            Choose a track that matches your goals. We&apos;ll help you reach ROI and step up as you grow.
+            AI implementation packages designed for small businesses. Start small, see results, then scale up.
           </p>
         </motion.div>
 
@@ -683,7 +778,7 @@ function Packages() {
             >
               {tier.popular && (
                 <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2">
-                  <div className="rounded-full bg-[#0a0a0a] px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-[#fe3641] border border-[#fe3641]">
+                  <div className="rounded-full bg-[#171717] px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-[#fe3641] border border-[#fe3641]">
                     Most Popular
                   </div>
                 </div>
@@ -774,8 +869,8 @@ function LeadForm() {
   }
 
   return (
-    <section id="contact" className="relative bg-[#0a0a0a] py-24">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0f0f0f] to-[#0a0a0a]" />
+    <section id="contact" className="relative bg-[#171717] py-24">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#171717] via-[#1a1a1a] to-[#171717]" />
       
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
         <motion.div
@@ -787,10 +882,10 @@ function LeadForm() {
         >
           <div className="text-center mb-8 sm:mb-10">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4">
-              Tell us what you want to <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">build</span>
+              Ready to transform your business with <span className="bg-gradient-to-r from-[#fe3641] to-[#be0a24] bg-clip-text text-transparent">AI?</span>
             </h2>
             <p className="text-lg sm:text-xl text-zinc-300">
-              We&apos;ll respond within 24 hours with next steps. Prefer voice? Book a call instead.
+              Tell us about your business goals and we&apos;ll show you how AI can help you achieve them faster.
             </p>
           </div>
 
@@ -819,7 +914,7 @@ function LeadForm() {
             <textarea
               name="message"
               className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 md:col-span-2 text-sm sm:text-base resize-none"
-              placeholder="What problem are we solving?"
+              placeholder="Describe your business challenges and how you'd like AI to help"
               rows={5}
               required
             />
@@ -833,7 +928,7 @@ function LeadForm() {
                 type="submit"
               >
                 {loading ? "Sending..." : (
-                  <>Send Inquiry <ArrowRight className="h-5 w-5" /></>
+                  <>Get AI Strategy <ArrowRight className="h-5 w-5" /></>
                 )}
               </motion.button>
               
@@ -845,7 +940,7 @@ function LeadForm() {
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300 w-full sm:w-auto"
               >
-                Book a Strategy Call
+                Book AI Strategy Call
               </motion.a>
             </div>
 
@@ -880,7 +975,7 @@ function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-[#0a0a0a] border-t border-white/10">
+    <footer className="bg-[#171717] border-t border-white/10">
       <div className="mx-auto max-w-7xl px-6 md:px-8 py-16">
         <div className="grid gap-12 lg:grid-cols-2">
           <motion.div
@@ -891,13 +986,34 @@ function Footer() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="relative">
-                <Sparkles className="h-6 w-6 text-[#fe3641]" />
-                <div className="absolute inset-0 h-6 w-6 bg-[#fe3641] rounded-full blur-sm animate-pulse opacity-30" />
+                <div className="h-6 w-6 text-[#fe3641]">
+                  {/* Morse Code Logo Mark */}
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+                    <rect x="2" y="6" width="4" height="2" rx="1" />
+                    <circle cx="8" cy="7" r="1" />
+                    <rect x="12" y="6" width="4" height="2" rx="1" />
+                    <rect x="18" y="6" width="2" height="2" rx="1" />
+                    <rect x="2" y="10" width="2" height="2" rx="1" />
+                    <rect x="6" y="10" width="4" height="2" rx="1" />
+                    <rect x="12" y="10" width="4" height="2" rx="1" />
+                    <rect x="18" y="10" width="2" height="2" rx="1" />
+                    <rect x="2" y="14" width="4" height="2" rx="1" />
+                    <circle cx="8" cy="15" r="1" />
+                    <circle cx="12" cy="15" r="1" />
+                    <circle cx="16" cy="15" r="1" />
+                    <rect x="20" y="14" width="2" height="2" rx="1" />
+                    <rect x="2" y="18" width="2" height="2" rx="1" />
+                    <circle cx="6" cy="19" r="1" />
+                    <circle cx="10" cy="19" r="1" />
+                    <rect x="14" y="18" width="4" height="2" rx="1" />
+                  </svg>
+                </div>
+                <div className="absolute inset-0 h-6 w-6 bg-[#fe3641] rounded-sm blur-sm animate-pulse opacity-30" />
               </div>
               <span className="text-2xl font-black tracking-tight">Kodedit</span>
             </div>
             <p className="text-lg text-zinc-300 max-w-md leading-relaxed mb-8">
-              Kodedit is an AI studio that helps teams ship practical AI—fast. We handle strategy, build, and ongoing improvement so you see results, not just demos.
+              Kodedit helps small businesses harness the power of AI to automate processes, improve customer service, and unlock new growth opportunities.
             </p>
             
             <motion.a
@@ -921,9 +1037,9 @@ function Footer() {
             <div>
               <h4 className="font-bold text-white mb-4">Navigation</h4>
               <div className="space-y-3">
-                <a href="#services" className="block text-zinc-400 hover:text-white transition-colors">Services</a>
-                <a href="#outcomes" className="block text-zinc-400 hover:text-white transition-colors">Outcomes</a>
-                <a href="#packages" className="block text-zinc-400 hover:text-white transition-colors">Packages</a>
+                <a href="#services" className="block text-zinc-400 hover:text-white transition-colors">AI Solutions</a>
+                <a href="#outcomes" className="block text-zinc-400 hover:text-white transition-colors">Benefits</a>
+                <a href="#packages" className="block text-zinc-400 hover:text-white transition-colors">AI Packages</a>
                 <a href="#contact" className="block text-zinc-400 hover:text-white transition-colors">Contact</a>
               </div>
             </div>
@@ -939,7 +1055,7 @@ function Footer() {
                 >
                   Book Strategy Call
                 </a>
-                <a href="#contact" className="block text-zinc-400 hover:text-white transition-colors">Send Inquiry</a>
+                <a href="#contact" className="block text-zinc-400 hover:text-white transition-colors">Get AI Strategy</a>
               </div>
             </div>
           </motion.div>

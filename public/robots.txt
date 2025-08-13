@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kodedit.com/sitemap.xml
+
+# Block sensitive areas (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
