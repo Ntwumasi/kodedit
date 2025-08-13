@@ -48,10 +48,11 @@ export const metadata: Metadata = {
     siteName: "Kodedit",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.svg",
         width: 1200,
         height: 630,
         alt: "Kodedit - AI Solutions for Small Businesses",
+        type: "image/svg+xml",
       },
     ],
   },
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kodedit - AI Solutions for Small Businesses",
     description: "Transform your small business with AI. We provide chatbots, automation, and predictive analytics that save time, reduce costs, and accelerate growth.",
-    images: ["/og-image.png"],
+    images: ["/og-image.svg"],
     creator: "@kodedit",
     site: "@kodedit",
   },

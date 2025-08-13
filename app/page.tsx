@@ -27,7 +27,7 @@ const structuredData = {
   "@type": "Organization",
   "name": "Kodedit",
   "url": "https://kodedit.com",
-  "logo": "https://kodedit.com/og-image.png",
+  "logo": "https://kodedit.com/og-image.svg",
   "description": "AI solutions for small businesses. We provide chatbots, automation, and predictive analytics that save time, reduce costs, and accelerate growth.",
   "foundingDate": "2024",
   "contactPoint": {
@@ -124,7 +124,7 @@ function IntroVideo({ onDone }: { onDone: () => void }) {
 
 
   return (
-    <section className="relative h-[100dvh] w-full overflow-hidden">
+    <section className="relative min-h-[100dvh] w-full overflow-hidden">
       <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover z-0 pointer-events-none"
@@ -143,7 +143,7 @@ function IntroVideo({ onDone }: { onDone: () => void }) {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(254,54,65,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(254,54,65,0.1)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
       </div>
 
-      <div className="relative z-20 h-full flex items-start justify-between p-6">
+      <div className="relative z-20 h-full flex items-start justify-between p-4 sm:p-6 pt-6 sm:pt-8">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -187,7 +187,7 @@ function IntroVideo({ onDone }: { onDone: () => void }) {
           Skip intro
         </motion.button>
       </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-20 bg-gradient-to-b from-transparent to-[#171717]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-40 z-20 bg-gradient-to-b from-transparent to-[#171717]" />
     </section>
   );
 }
@@ -376,9 +376,9 @@ function Hero() {
 
       <motion.div 
         style={{ y, opacity }}
-        className="relative z-10 h-[100dvh] flex items-center"
+        className="relative z-10 min-h-[100dvh] flex items-center pt-20 sm:pt-24"
       >
-        <div className="mx-auto max-w-7xl px-6 md:px-8 w-full">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 w-full py-8 sm:py-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -449,7 +449,7 @@ function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
+              className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
             >
               {[
                 { icon: Clock, text: "See results in 2-4 weeks" },
@@ -462,10 +462,10 @@ function Hero() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
-                  className="flex items-center gap-3 text-xs sm:text-sm text-zinc-300 bg-white/5 rounded-xl px-3 sm:px-4 py-2 sm:py-3 backdrop-blur border border-white/10"
+                  className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-zinc-300 bg-white/5 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 backdrop-blur border border-white/10"
                 >
-                  <Icon className="h-4 w-4 text-[#fe3641]" />
-                  <span className="font-medium">{text}</span>
+                  <Icon className="h-3 w-3 sm:h-4 sm:w-4 text-[#fe3641] flex-shrink-0" />
+                  <span className="font-medium text-xs sm:text-sm leading-tight">{text}</span>
                 </motion.div>
               ))}
             </motion.div>
