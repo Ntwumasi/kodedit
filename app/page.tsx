@@ -14,6 +14,8 @@ import {
   Users,
   Clock,
   Shield,
+  Menu,
+  X,
 } from "lucide-react";
 
 const VIDEO_SRC = "/video/hero.mp4";
@@ -120,6 +122,7 @@ function IntroVideo({ onDone }: { onDone: () => void }) {
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -148,6 +151,7 @@ function Header() {
           </div>
           <span className="text-lg font-bold tracking-tight">Kodedit</span>
         </div>
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm">
           <a href="#services" className="text-zinc-300 hover:text-white transition-colors relative group">
             Services
@@ -177,7 +181,75 @@ function Header() {
             <span className="relative">Book a Strategy Call</span>
           </motion.a>
         </nav>
+        
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden p-2 rounded-xl border border-white/20 bg-white/5 backdrop-blur transition-colors hover:bg-white/10"
+        >
+          {isMobileMenuOpen ? (
+            <X className="h-5 w-5 text-white" />
+          ) : (
+            <Menu className="h-5 w-5 text-white" />
+          )}
+        </button>
       </div>
+      
+      {/* Mobile Navigation Menu */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{
+          opacity: isMobileMenuOpen ? 1 : 0,
+          y: isMobileMenuOpen ? 0 : -20,
+          pointerEvents: isMobileMenuOpen ? 'auto' : 'none'
+        }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className={`absolute top-full left-0 right-0 backdrop-blur-xl bg-[#0a0a0a]/95 border-b border-white/10 md:hidden ${
+          isMobileMenuOpen ? 'block' : 'hidden'
+        }`}
+      >
+        <div className="px-4 py-6 space-y-4">
+          <a 
+            href="#services" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block py-3 px-4 text-zinc-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
+          >
+            Services
+          </a>
+          <a 
+            href="#outcomes" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block py-3 px-4 text-zinc-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
+          >
+            Outcomes
+          </a>
+          <a 
+            href="#packages" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block py-3 px-4 text-zinc-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
+          >
+            Packages
+          </a>
+          <a 
+            href="#contact" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block py-3 px-4 text-zinc-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
+          >
+            Contact
+          </a>
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            href={CALENDLY_LINK}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block mt-4 text-center rounded-xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] text-white px-6 py-3 font-semibold"
+          >
+            Book a Strategy Call
+          </motion.a>
+        </div>
+      </motion.div>
     </motion.header>
   );
 }
@@ -234,7 +306,7 @@ function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-5xl md:text-7xl font-black leading-tight tracking-tight"
+              className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-tight"
             >
               Ship AI faster.{" "}
               <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">
@@ -246,7 +318,7 @@ function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-6 text-xl md:text-2xl text-zinc-300 max-w-3xl leading-relaxed"
+              className="mt-6 text-lg sm:text-xl md:text-2xl text-zinc-300 max-w-3xl leading-relaxed"
             >
               We design, build, and run practical AI systems—chatbots, automations, and custom integrations—that save time and drive revenue.
             </motion.p>
@@ -255,24 +327,24 @@ function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-10 flex flex-col sm:flex-row gap-4"
+              className="mt-8 sm:mt-10 flex flex-col gap-4"
             >
               <motion.a
-                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(254, 54, 65, 0.3)" }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(254, 54, 65, 0.3)" }}
+                whileTap={{ scale: 0.98 }}
                 href={CALENDLY_LINK}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-8 py-4 text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
               >
                 Book a Strategy Call 
                 <ArrowRight className="h-5 w-5" />
               </motion.a>
               <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href="#services"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-8 py-4 text-[#fe3641] font-bold text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300"
               >
                 Explore Services
               </motion.a>
@@ -282,7 +354,7 @@ function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+              className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
             >
               {[
                 { icon: Clock, text: "Avg. 30–60 days to value" },
@@ -295,7 +367,7 @@ function Hero() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
-                  className="flex items-center gap-3 text-sm text-zinc-300 bg-white/5 rounded-xl px-4 py-3 backdrop-blur border border-white/10"
+                  className="flex items-center gap-3 text-xs sm:text-sm text-zinc-300 bg-white/5 rounded-xl px-3 sm:px-4 py-2 sm:py-3 backdrop-blur border border-white/10"
                 >
                   <Icon className="h-4 w-4 text-[#fe3641]" />
                   <span className="font-medium">{text}</span>
@@ -391,17 +463,17 @@ function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-4">
             Services that <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">pay for themselves</span>
           </h2>
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto px-4">
             Start small, ship fast, and scale with confidence. Fixed‑scope pilots in 2–4 weeks.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 px-4 sm:px-0">
           {items.map((item, i) => (
             <motion.div
               key={item.title}
@@ -410,23 +482,23 @@ function Services() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className={`group relative rounded-3xl border border-white/10 bg-gradient-to-br ${item.gradient} backdrop-blur-sm p-8 hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-[#fe3641]/10`}
+              className={`group relative rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br ${item.gradient} backdrop-blur-sm p-6 sm:p-8 hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-[#fe3641]/10`}
             >
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="relative">
-                <div className="flex items-start gap-6">
-                  <div className="rounded-2xl bg-[#fe3641]/10 p-4 border border-[#fe3641]/20">
+                <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                  <div className="rounded-xl sm:rounded-2xl bg-[#fe3641]/10 p-3 sm:p-4 border border-[#fe3641]/20 self-start">
                     {item.icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-3 text-white">{item.title}</h3>
-                    <p className="text-zinc-300 mb-6 leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white">{item.title}</h3>
+                    <p className="text-zinc-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">{item.desc}</p>
                     <ul className="space-y-3">
                       {item.bullets.map((bullet) => (
-                        <li key={bullet} className="flex items-center gap-3 text-sm text-zinc-300">
-                          <CheckCircle2 className="h-5 w-5 text-[#fe3641] flex-shrink-0" />
-                          <span className="font-medium">{bullet}</span>
+                        <li key={bullet} className="flex items-start gap-3 text-sm text-zinc-300">
+                          <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#fe3641] flex-shrink-0 mt-0.5" />
+                          <span className="font-medium text-xs sm:text-sm">{bullet}</span>
                         </li>
                       ))}
                     </ul>
@@ -455,22 +527,22 @@ function Outcomes() {
 
   return (
     <section id="outcomes" className="relative bg-[#0f0f0f] py-24">
-      <div className="mx-auto max-w-7xl px-6 md:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-6">
               Clear outcomes, <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">fast timelines</span>
             </h2>
-            <p className="text-xl text-zinc-300 mb-10 leading-relaxed">
+            <p className="text-lg sm:text-xl text-zinc-300 mb-8 sm:mb-10 leading-relaxed">
               We prioritise measurable ROI: faster responses, fewer tickets, more qualified leads, and hours back to your team. No hype—just outcomes.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10">
               {stats.map(({ label, value, icon: Icon }, i) => (
                 <motion.div
                   key={label}
@@ -478,13 +550,13 @@ function Outcomes() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="bg-gradient-to-br from-white/5 to-white/10 rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group"
+                  className="bg-gradient-to-br from-white/5 to-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group"
                 >
-                  <div className="flex items-center gap-4 mb-3">
-                    <Icon className="h-6 w-6 text-[#fe3641]" />
-                    <span className="text-3xl font-black text-white group-hover:text-[#fe3641] transition-colors">{value}</span>
+                  <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-[#fe3641]" />
+                    <span className="text-2xl sm:text-3xl font-black text-white group-hover:text-[#fe3641] transition-colors">{value}</span>
                   </div>
-                  <span className="text-zinc-400 font-medium">{label}</span>
+                  <span className="text-zinc-400 font-medium text-sm sm:text-base">{label}</span>
                 </motion.div>
               ))}
             </div>
@@ -501,7 +573,7 @@ function Outcomes() {
                 href={CALENDLY_LINK}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-8 py-4 text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
               >
                 See what&apos;s possible <ArrowRight className="h-5 w-5" />
               </motion.a>
@@ -515,12 +587,12 @@ function Outcomes() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-8 backdrop-blur-sm">
+            <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-6 sm:p-8 backdrop-blur-sm">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-3 w-3 rounded-full bg-[#fe3641]" />
                 <span className="text-zinc-400 font-medium">Example Tech Stack</span>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 {techStack.map((tech, i) => (
                   <motion.div
                     key={tech}
@@ -529,7 +601,7 @@ function Outcomes() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: i * 0.05 }}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 p-4 text-center text-sm font-medium border border-white/10 hover:border-[#fe3641]/30 transition-all duration-300"
+                    className="rounded-lg sm:rounded-xl bg-gradient-to-br from-white/10 to-white/5 p-3 sm:p-4 text-center text-xs sm:text-sm font-medium border border-white/10 hover:border-[#fe3641]/30 transition-all duration-300"
                   >
                     {tech}
                   </motion.div>
@@ -578,23 +650,23 @@ function Packages() {
     <section id="packages" className="relative bg-gradient-to-b from-[#0f0f0f] to-[#0a0a0a] py-24">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(254,54,65,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(254,54,65,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
       
-      <div className="relative mx-auto max-w-7xl px-6 md:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-4">
             Pricing & <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">packages</span>
           </h2>
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto px-4">
             Choose a track that matches your goals. We&apos;ll help you reach ROI and step up as you grow.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.name}
@@ -603,37 +675,37 @@ function Packages() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className={`relative rounded-3xl p-8 ${
+              className={`relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 ${
                 tier.popular
-                  ? "bg-gradient-to-b from-[#fe3641] to-[#ff4757] text-white shadow-2xl shadow-[#fe3641]/20 scale-105"
+                  ? "bg-gradient-to-b from-[#fe3641] to-[#ff4757] text-white shadow-2xl shadow-[#fe3641]/20 md:scale-105"
                   : "bg-gradient-to-b from-white/5 to-white/10 border border-white/10 hover:border-white/20"
               } transition-all duration-500 group`}
             >
               {tier.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <div className="rounded-full bg-[#0a0a0a] px-4 py-2 text-sm font-bold text-[#fe3641] border border-[#fe3641]">
+                <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2">
+                  <div className="rounded-full bg-[#0a0a0a] px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-[#fe3641] border border-[#fe3641]">
                     Most Popular
                   </div>
                 </div>
               )}
 
-              <div className="mb-8">
-                <h3 className={`text-2xl font-bold mb-2 ${tier.popular ? "text-white" : "text-white"}`}>
+              <div className="mb-6 sm:mb-8">
+                <h3 className={`text-xl sm:text-2xl font-bold mb-2 ${tier.popular ? "text-white" : "text-white"}`}>
                   {tier.name}
                 </h3>
-                <div className={`text-3xl font-black mb-4 ${tier.popular ? "text-white" : "text-white"}`}>
+                <div className={`text-2xl sm:text-3xl font-black mb-3 sm:mb-4 ${tier.popular ? "text-white" : "text-white"}`}>
                   {tier.price}
                 </div>
-                <p className={`leading-relaxed ${tier.popular ? "text-white/90" : "text-zinc-300"}`}>
+                <p className={`leading-relaxed text-sm sm:text-base ${tier.popular ? "text-white/90" : "text-zinc-300"}`}>
                   {tier.desc}
                 </p>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3">
-                    <CheckCircle2 className={`h-5 w-5 flex-shrink-0 ${tier.popular ? "text-white" : "text-[#fe3641]"}`} />
-                    <span className={`${tier.popular ? "text-white/90" : "text-zinc-300"} font-medium`}>
+                  <li key={feature} className="flex items-start gap-3">
+                    <CheckCircle2 className={`h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 mt-0.5 ${tier.popular ? "text-white" : "text-[#fe3641]"}`} />
+                    <span className={`${tier.popular ? "text-white/90" : "text-zinc-300"} font-medium text-sm sm:text-base`}>
                       {feature}
                     </span>
                   </li>
@@ -646,7 +718,7 @@ function Packages() {
                 href={CALENDLY_LINK}
                 target="_blank"
                 rel="noreferrer"
-                className={`inline-flex items-center justify-center gap-3 rounded-2xl px-8 py-4 font-bold text-lg w-full transition-all duration-300 ${
+                className={`inline-flex items-center justify-center gap-3 rounded-2xl px-6 sm:px-8 py-3 sm:py-4 font-bold text-base sm:text-lg w-full transition-all duration-300 ${
                   tier.popular
                     ? "bg-white text-[#fe3641] hover:bg-white/90 shadow-xl"
                     : "bg-gradient-to-r from-[#fe3641] to-[#ff4757] text-white hover:shadow-xl hover:shadow-[#fe3641]/20"
@@ -705,59 +777,59 @@ function LeadForm() {
     <section id="contact" className="relative bg-[#0a0a0a] py-24">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0f0f0f] to-[#0a0a0a]" />
       
-      <div className="relative mx-auto max-w-5xl px-6 md:px-8">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-8 md:p-12 backdrop-blur-sm"
+          className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-6 sm:p-8 md:p-12 backdrop-blur-sm"
         >
-          <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4">
               Tell us what you want to <span className="bg-gradient-to-r from-[#fe3641] to-[#ff4757] bg-clip-text text-transparent">build</span>
             </h2>
-            <p className="text-xl text-zinc-300">
+            <p className="text-lg sm:text-xl text-zinc-300">
               We&apos;ll respond within 24 hours with next steps. Prefer voice? Book a call instead.
             </p>
           </div>
 
-          <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* honeypot */}
             <input type="text" tabIndex={-1} autoComplete="off" name="website" className="hidden" />
             
             <input
               name="name"
-              className="w-full rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300"
+              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 text-sm sm:text-base"
               placeholder="Full name"
               required
             />
             <input
               name="email"
               type="email"
-              className="w-full rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300"
+              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 text-sm sm:text-base"
               placeholder="Email"
               required
             />
             <input
               name="company"
-              className="w-full rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 md:col-span-2"
+              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 md:col-span-2 text-sm sm:text-base"
               placeholder="Company (optional)"
             />
             <textarea
               name="message"
-              className="w-full rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 md:col-span-2"
+              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 md:col-span-2 text-sm sm:text-base resize-none"
               placeholder="What problem are we solving?"
-              rows={6}
+              rows={5}
               required
             />
             
-            <div className="md:col-span-2 flex flex-col sm:flex-row gap-4">
+            <div className="md:col-span-2 flex flex-col gap-3 sm:gap-4">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={loading}
-                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-8 py-4 text-white font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-[#fe3641]/20 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-[#fe3641]/20 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed w-full"
                 type="submit"
               >
                 {loading ? "Sending..." : (
@@ -771,7 +843,7 @@ function LeadForm() {
                 href={CALENDLY_LINK}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-8 py-4 text-[#fe3641] font-bold text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300 w-full sm:w-auto"
               >
                 Book a Strategy Call
               </motion.a>
@@ -781,7 +853,7 @@ function LeadForm() {
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="md:col-span-2 text-center p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 font-medium"
+                className="md:col-span-2 text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 font-medium text-sm sm:text-base"
               >
                 Thanks! We&apos;ll reach out within 24 hours.
               </motion.div>
@@ -790,7 +862,7 @@ function LeadForm() {
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="md:col-span-2 text-center p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 font-medium"
+                className="md:col-span-2 text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 font-medium text-sm sm:text-base"
               >
                 {err}
               </motion.div>
