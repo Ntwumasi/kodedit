@@ -5,6 +5,15 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if API key is available
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY environment variable is not set");
+      return NextResponse.json(
+        { error: "Email service not configured" },
+        { status: 500 }
+      );
+    }
+
     const formData = await request.formData();
     
     // Extract all form fields
@@ -300,13 +309,18 @@ export async function POST(request: NextRequest) {
     // Send email using Resend
     try {
       const emailResult = await resend.emails.send({
-        from: 'Kodedit Intake Form <onboarding@resend.dev>',
+        from: 'Kodedit <onboarding@resend.dev>',
         to: ['kodedit.io@gmail.com'],
         subject: `New Project Intake: ${data.businessName} (${data.fullName})`,
         html: emailContent,
       });
 
       console.log("Email sent successfully:", emailResult);
+      
+      if (!emailResult.data) {
+        console.error("Email sending failed:", emailResult);
+        throw new Error("Email sending failed");
+      }
       
       // Also send a confirmation email to the user
       const confirmationEmail = `
@@ -358,7 +372,7 @@ export async function POST(request: NextRequest) {
       `;
 
       await resend.emails.send({
-        from: 'Kodedit Team <onboarding@resend.dev>',
+        from: 'Kodedit <onboarding@resend.dev>',
         to: [data.email],
         subject: 'Thank you for your project submission!',
         html: confirmationEmail,
