@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { 
   ArrowRight, 
   CheckCircle2, 
@@ -240,7 +241,7 @@ export default function IntakeForm() {
     { 
       title: "Welcome", 
       icon: <Sparkles className="h-6 w-6" />,
-      description: "Let's create something amazing together"
+      description: "Let&apos;s create something amazing together"
     },
     { 
       title: "Basic Information", 
@@ -280,7 +281,7 @@ export default function IntakeForm() {
     { 
       title: "Communication", 
       icon: <MessageSquare className="h-6 w-6" />,
-      description: "How we'll work together"
+      description: "How we&apos;ll work together"
     },
     { 
       title: "Success Metrics", 
@@ -296,7 +297,7 @@ export default function IntakeForm() {
 
   useEffect(() => {
     // Calculate form progress
-    const filledFields = Object.entries(formData).filter(([key, value]) => {
+    const filledFields = Object.entries(formData).filter(([, value]) => {
       if (Array.isArray(value)) return value.length > 0;
       if (value === null) return false;
       return value !== "";
@@ -348,7 +349,7 @@ export default function IntakeForm() {
         const data = await response.json();
         setError(data.error || "Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -390,17 +391,20 @@ export default function IntakeForm() {
             Thank You!
           </h1>
           <p className="text-zinc-300 mb-8 text-lg">
-            Your intake form has been submitted successfully. We'll review your information and get back to you within 24 hours.
+            Your intake form has been submitted successfully. We&apos;ll review your information and get back to you within 24 hours.
           </p>
-          <motion.a
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="/"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl hover:shadow-[#fe3641]/20 transition-all"
           >
-            Back to Home
-            <ArrowRight className="h-5 w-5" />
-          </motion.a>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl hover:shadow-[#fe3641]/20 transition-all"
+            >
+              Back to Home
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     );
@@ -417,7 +421,7 @@ export default function IntakeForm() {
       {/* Header */}
       <header className="relative border-b border-white/10 bg-[#171717]/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <div className="relative">
               <div className="h-7 w-7 text-[#fe3641] group-hover:scale-110 transition-transform">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
@@ -443,7 +447,7 @@ export default function IntakeForm() {
               <div className="absolute inset-0 h-7 w-7 bg-[#fe3641] rounded-sm blur-md animate-pulse opacity-20" />
             </div>
             <span className="text-xl font-bold">Kodedit</span>
-          </a>
+          </Link>
           
           {/* Progress indicator */}
           <div className="hidden md:flex items-center gap-2">
@@ -540,7 +544,7 @@ export default function IntakeForm() {
                     <Sparkles className="h-24 w-24 text-[#fe3641] relative" />
                   </div>
                   <h2 className="text-4xl font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent">
-                    Welcome to Kodedit's Project Intake
+                    Welcome to Kodedit&apos;s Project Intake
                   </h2>
                   <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
                     This comprehensive form helps us understand your vision and requirements. 
@@ -555,7 +559,7 @@ export default function IntakeForm() {
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                       <Zap className="h-8 w-8 text-[#fe3641] mx-auto mb-3" />
                       <h3 className="font-semibold mb-2">Fast Response</h3>
-                      <p className="text-sm text-zinc-400">We'll review and respond within 24 hours</p>
+                      <p className="text-sm text-zinc-400">We&apos;ll review and respond within 24 hours</p>
                     </div>
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                       <Target className="h-8 w-8 text-[#fe3641] mx-auto mb-3" />
@@ -1456,8 +1460,8 @@ export default function IntakeForm() {
                       Ready to submit?
                     </h3>
                     <p className="text-sm text-zinc-300 mb-4">
-                      By submitting this form, you're taking the first step toward transforming your business with AI and modern technology.
-                      We'll review your information and get back to you within 24 hours with a personalized proposal.
+                      By submitting this form, you&apos;re taking the first step toward transforming your business with AI and modern technology.
+                      We&apos;ll review your information and get back to you within 24 hours with a personalized proposal.
                     </p>
                     <div className="flex items-center gap-2 text-sm text-zinc-400">
                       <Send className="h-4 w-4" />

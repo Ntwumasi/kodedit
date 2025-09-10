@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     if (data.brandColors) {
       try {
         brandColors = JSON.parse(data.brandColors);
-      } catch (e) {
+      } catch {
         brandColors = data.brandColors;
       }
     }
