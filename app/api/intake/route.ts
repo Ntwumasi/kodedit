@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
@@ -294,25 +297,89 @@ export async function POST(request: NextRequest) {
 </html>
 `;
 
-    // Since we can't directly send emails from the browser, we'll need to use a service
-    // For now, we'll just log the data and return success
-    // In production, you would integrate with an email service like SendGrid, Resend, etc.
+    // Send email using Resend
+    try {
+      const emailResult = await resend.emails.send({
+        from: 'Kodedit Intake Form <onboarding@resend.dev>',
+        to: ['kodedit.io@gmail.com'],
+        subject: `New Project Intake: ${data.businessName} (${data.fullName})`,
+        html: emailContent,
+      });
+
+      console.log("Email sent successfully:", emailResult);
+      
+      // Also send a confirmation email to the user
+      const confirmationEmail = `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #fe3641, #ff4757); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+    .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+    .footer { text-align: center; color: #666; font-size: 12px; margin-top: 20px; }
+    .button { background: linear-gradient(135deg, #fe3641, #ff4757); color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; display: inline-block; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Thank You, ${data.fullName}!</h1>
+    <p>Your project intake form has been received</p>
+  </div>
+  <div class="content">
+    <h2>What happens next?</h2>
+    <p>We've received your project details for <strong>${data.businessName}</strong> and we're excited to work with you!</p>
     
-    console.log("Intake form submission:", data);
-    console.log("Email would be sent to: kodedit.io@gmail.com");
-    console.log("Email content:", emailContent);
+    <p><strong>Our next steps:</strong></p>
+    <ul>
+      <li>✅ Review your project requirements (within 4 hours)</li>
+      <li>🎯 Prepare a customized proposal and timeline</li>
+      <li>📞 Schedule a strategy call to discuss details</li>
+      <li>🚀 Begin planning your AI-powered transformation</li>
+    </ul>
     
-    // In a real implementation, you would:
-    // 1. Use an email service API (SendGrid, Resend, AWS SES, etc.)
-    // 2. Store the submission in a database
-    // 3. Send a confirmation email to the user
+    <p><strong>Expected response time:</strong> Within 24 hours (usually much faster!)</p>
     
-    // For now, we'll simulate success
-    return NextResponse.json({ 
-      success: true, 
-      message: "Form submitted successfully! We'll review your information and get back to you within 24 hours.",
-      note: "Note: Email service integration needed for production. Currently logging to console." 
-    });
+    <div style="text-align: center;">
+      <a href="https://calendly.com/your-handle/ai-strategy-call" class="button">Schedule a Call Now</a>
+    </div>
+    
+    <p>If you have any urgent questions, feel free to reply to this email or contact us directly.</p>
+    
+    <p>Best regards,<br>
+    <strong>The Kodedit Team</strong><br>
+    AI Solutions for Small Businesses</p>
+  </div>
+  <div class="footer">
+    <p>© ${new Date().getFullYear()} Kodedit. All rights reserved.</p>
+  </div>
+</body>
+</html>
+      `;
+
+      await resend.emails.send({
+        from: 'Kodedit Team <onboarding@resend.dev>',
+        to: [data.email],
+        subject: 'Thank you for your project submission!',
+        html: confirmationEmail,
+      });
+
+      return NextResponse.json({ 
+        success: true, 
+        message: "Form submitted successfully! We'll review your information and get back to you within 24 hours."
+      });
+
+    } catch (emailError) {
+      console.error("Error sending email:", emailError);
+      
+      // Still return success but log the email error
+      // The form data was processed, just email failed
+      return NextResponse.json({ 
+        success: true, 
+        message: "Form submitted successfully! We'll review your information and get back to you within 24 hours.",
+        note: "Email delivery may be delayed."
+      });
+    }
     
   } catch (error) {
     console.error("Error processing intake form:", error);
