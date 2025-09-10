@@ -267,6 +267,14 @@ function Header() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            href="/intake"
+            className="relative rounded-full border-2 border-[#fe3641] bg-[#fe3641]/10 text-[#fe3641] px-5 py-2.5 font-medium overflow-hidden group hover:bg-[#fe3641]/20 transition-all"
+          >
+            <span className="relative">Start Project</span>
+          </motion.a>
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href={CALENDLY_LINK}
             target="_blank"
             rel="noreferrer"
@@ -335,11 +343,20 @@ function Header() {
           <motion.a
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            href="/intake"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block mt-4 text-center rounded-xl border-2 border-[#fe3641] bg-[#fe3641]/10 text-[#fe3641] px-6 py-3 font-semibold"
+          >
+            Start Project
+          </motion.a>
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             href={CALENDLY_LINK}
             target="_blank"
             rel="noreferrer"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block mt-4 text-center rounded-xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] text-white px-6 py-3 font-semibold"
+            className="block mt-2 text-center rounded-xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] text-white px-6 py-3 font-semibold"
           >
             Book a Strategy Call
           </motion.a>
@@ -427,21 +444,21 @@ function Hero() {
               <motion.a
                 whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(254, 54, 65, 0.3)" }}
                 whileTap={{ scale: 0.98 }}
-                href={CALENDLY_LINK}
-                target="_blank"
-                rel="noreferrer"
+                href="/intake"
                 className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
               >
-                Book AI Strategy Call 
+                Start Your Project
                 <ArrowRight className="h-5 w-5" />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                href="#services"
+                href={CALENDLY_LINK}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300"
               >
-                Explore AI Solutions
+                Book AI Strategy Call
               </motion.a>
             </motion.div>
 
@@ -932,16 +949,26 @@ function LeadForm() {
                 )}
               </motion.button>
               
-              <motion.a
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                href={CALENDLY_LINK}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300 w-full sm:w-auto"
-              >
-                Book AI Strategy Call
-              </motion.a>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  href="/intake"
+                  className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300 flex-1"
+                >
+                  Fill Intake Form
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  href={CALENDLY_LINK}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl border-2 border-white/20 bg-white/5 px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg backdrop-blur hover:bg-white/10 transition-all duration-300 flex-1"
+                >
+                  Book Call Instead
+                </motion.a>
+              </div>
             </div>
 
             {ok === true && (
@@ -1047,6 +1074,12 @@ function Footer() {
             <div>
               <h4 className="font-bold text-white mb-4">Get Started</h4>
               <div className="space-y-3">
+                <a 
+                  href="/intake"
+                  className="block text-zinc-400 hover:text-white transition-colors"
+                >
+                  Start Your Project
+                </a>
                 <a 
                   href={CALENDLY_LINK}
                   target="_blank"
