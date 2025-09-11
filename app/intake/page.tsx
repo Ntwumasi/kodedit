@@ -338,7 +338,7 @@ export default function IntakeForm() {
         }
       });
 
-      const response = await fetch("/api/intake", {
+      const response = await fetch("/api/intake-gmail", {
         method: "POST",
         body: formDataToSend,
       });
