@@ -238,7 +238,7 @@ export default function DemoPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {siteData.testimonials.map((testimonial, index) => (
                 <div key={index} className="bg-gray-50 p-6 rounded-lg">
-                  <p className="text-gray-600 italic mb-4">"{testimonial.quote}"</p>
+                  <p className="text-gray-600 italic mb-4">&ldquo;{testimonial.quote}&rdquo;</p>
                   <p className="font-semibold" style={{ color: getColorValue(siteData.colors.primary) }}>– {testimonial.author}</p>
                 </div>
               ))}
