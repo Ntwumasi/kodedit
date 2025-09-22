@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
+interface ChatMessage {
+  text: string;
+  isUser: boolean;
+  timestamp: Date;
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -37,7 +43,7 @@ Keep responses under 100 words when possible.`;
 
     // Build messages array for Claude API
     const messages = [
-      ...recentMessages.map((msg: any) => ({
+      ...recentMessages.map((msg: ChatMessage) => ({
         role: msg.isUser ? "user" : "assistant",
         content: msg.text
       })),
