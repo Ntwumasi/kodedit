@@ -846,149 +846,183 @@ function Packages() {
   );
 }
 
-/* ======================= Lead Form ======================= */
+/* ======================= AI Chatbot ======================= */
 
 function LeadForm() {
+  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; timestamp: Date }>>([
+    { text: "Hello! I'm your AI business consultant. Tell me about your business goals and I'll show you how AI can help you achieve them faster.", isUser: false, timestamp: new Date() }
+  ]);
+  const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const [ok, setOk] = useState<null | boolean>(null);
-  const [err, setErr] = useState<string | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!inputValue.trim() || loading) return;
+
+    const userMessage = inputValue;
+    setInputValue("");
+    setMessages(prev => [...prev, { text: userMessage, isUser: true, timestamp: new Date() }]);
     setLoading(true);
-    setOk(null);
-    setErr(null);
 
-    const fd = new FormData(e.currentTarget);
-    const payload = {
-      name: String(fd.get("name") || ""),
-      email: String(fd.get("email") || ""),
-      company: String(fd.get("company") || ""),
-      message: String(fd.get("message") || ""),
-      website: String(fd.get("website") || ""), // honeypot
-    };
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          conversation: messages
+        }),
+      });
 
-    const res = await fetch("/api/lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+      const data = await response.json();
 
-    const data = await res.json().catch(() => ({}));
-    setLoading(false);
-    if (res.ok && data?.ok) {
-      setOk(true);
-      (e.target as HTMLFormElement).reset();
-    } else {
-      setOk(false);
-      setErr(data?.error || "Something went wrong.");
+      if (data.success && data.message) {
+        setMessages(prev => [...prev, {
+          text: data.message,
+          isUser: false,
+          timestamp: new Date()
+        }]);
+      } else {
+        throw new Error(data.error || "Failed to get response");
+      }
+    } catch (error) {
+      console.error("Chat error:", error);
+      // Fallback response
+      setMessages(prev => [...prev, {
+        text: "I'm experiencing some technical difficulties. Please try again or feel free to book a call with our team for immediate assistance.",
+        isUser: false,
+        timestamp: new Date()
+      }]);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <section id="contact" className="relative bg-[#171717] py-24">
       <div className="absolute inset-0 bg-gradient-to-b from-[#171717] via-[#1a1a1a] to-[#171717]" />
-      
+
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-6 sm:p-8 md:p-12 backdrop-blur-sm"
+          className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm overflow-hidden"
         >
-          <div className="text-center mb-8 sm:mb-10">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4">
-              Ready to transform your business with <span className="bg-gradient-to-r from-[#fe3641] to-[#be0a24] bg-clip-text text-transparent">AI?</span>
-            </h2>
-            <p className="text-lg sm:text-xl text-zinc-300">
-              Tell us about your business goals and we&apos;ll show you how AI can help you achieve them faster.
-            </p>
-          </div>
-
-          <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            {/* honeypot */}
-            <input type="text" tabIndex={-1} autoComplete="off" name="website" className="hidden" />
-            
-            <input
-              name="name"
-              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 text-sm sm:text-base"
-              placeholder="Full name"
-              required
-            />
-            <input
-              name="email"
-              type="email"
-              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 text-sm sm:text-base"
-              placeholder="Email"
-              required
-            />
-            <input
-              name="company"
-              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 md:col-span-2 text-sm sm:text-base"
-              placeholder="Company (optional)"
-            />
-            <textarea
-              name="message"
-              className="w-full rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 md:col-span-2 text-sm sm:text-base resize-none"
-              placeholder="Describe your business challenges and how you'd like AI to help"
-              rows={5}
-              required
-            />
-            
-            <div className="md:col-span-2 flex flex-col gap-3 sm:gap-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                disabled={loading}
-                className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-[#fe3641]/20 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed w-full"
-                type="submit"
-              >
-                {loading ? "Sending..." : (
-                  <>Get AI Strategy <ArrowRight className="h-5 w-5" /></>
-                )}
-              </motion.button>
-              
-              <div className="flex flex-col sm:flex-row gap-3">
-                <motion.a
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  href="/intake"
-                  className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl border-2 border-[#fe3641] bg-[#fe3641]/10 px-6 sm:px-8 py-3 sm:py-4 text-[#fe3641] font-bold text-base sm:text-lg backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300 flex-1"
-                >
-                  Fill Intake Form
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  href={CALENDLY_LINK}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-3 rounded-xl sm:rounded-2xl border-2 border-white/20 bg-white/5 px-6 sm:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg backdrop-blur hover:bg-white/10 transition-all duration-300 flex-1"
-                >
-                  Book Call Instead
-                </motion.a>
+          {/* Chat Header */}
+          <div className="border-b border-white/10 p-6 sm:p-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight mb-2 flex items-center gap-3">
+                  <Bot className="h-8 w-8 text-[#fe3641]" />
+                  Chat with our <span className="bg-gradient-to-r from-[#fe3641] to-[#be0a24] bg-clip-text text-transparent">AI Consultant</span>
+                </h2>
+                <p className="text-sm sm:text-base text-zinc-400">
+                  Available 24/7 to discuss your AI transformation journey
+                </p>
+              </div>
+              <div className="hidden sm:flex items-center gap-2">
+                <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-sm text-zinc-400">Online</span>
               </div>
             </div>
+          </div>
 
-            {ok === true && (
-              <motion.div 
+          {/* Chat Messages */}
+          <div className="h-[500px] overflow-y-auto p-6 sm:p-8 space-y-4 bg-black/20">
+            {messages.map((message, index) => (
+              <motion.div
+                key={index}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="md:col-span-2 text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 font-medium text-sm sm:text-base"
+                transition={{ duration: 0.3 }}
+                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
               >
-                Thanks! We&apos;ll reach out within 24 hours.
+                <div className={`max-w-[70%] ${message.isUser ? 'order-2' : 'order-1'}`}>
+                  <div className={`rounded-2xl px-4 sm:px-5 py-3 sm:py-4 ${
+                    message.isUser
+                      ? 'bg-gradient-to-r from-[#fe3641] to-[#ff4757] text-white'
+                      : 'bg-white/10 text-zinc-100 border border-white/10'
+                  }`}>
+                    <p className="text-sm sm:text-base leading-relaxed">{message.text}</p>
+                  </div>
+                  <div className={`mt-1 px-2 text-xs text-zinc-500 ${message.isUser ? 'text-right' : 'text-left'}`}>
+                    {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+            {loading && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex justify-start"
+              >
+                <div className="bg-white/10 rounded-2xl px-5 py-4 border border-white/10">
+                  <div className="flex gap-2">
+                    <div className="h-2 w-2 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <div className="h-2 w-2 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <div className="h-2 w-2 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
+                </div>
               </motion.div>
             )}
-            {ok === false && (
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="md:col-span-2 text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 font-medium text-sm sm:text-base"
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Chat Input */}
+          <form onSubmit={handleSendMessage} className="border-t border-white/10 p-6 sm:p-8 bg-black/10">
+            <div className="flex gap-4">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Describe your business challenges and goals..."
+                className="flex-1 rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 px-4 sm:px-6 py-3 sm:py-4 text-white placeholder:text-zinc-400 outline-none focus:border-[#fe3641] focus:ring-2 focus:ring-[#fe3641]/20 transition-all duration-300 text-sm sm:text-base"
+                disabled={loading}
+              />
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                disabled={loading || !inputValue.trim()}
+                className="rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#fe3641] to-[#ff4757] px-6 sm:px-8 py-3 sm:py-4 text-white font-bold shadow-xl hover:shadow-2xl hover:shadow-[#fe3641]/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {err}
-              </motion.div>
-            )}
+                <ArrowRight className="h-5 w-5" />
+              </motion.button>
+            </div>
+            <div className="mt-4 flex flex-col sm:flex-row gap-3 text-center">
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href="/intake"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#fe3641]/50 bg-[#fe3641]/10 px-4 py-2 text-sm text-[#fe3641] font-medium backdrop-blur hover:bg-[#fe3641]/20 transition-all duration-300 flex-1"
+              >
+                Prefer a form? Fill intake
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href={CALENDLY_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm text-white font-medium backdrop-blur hover:bg-white/10 transition-all duration-300 flex-1"
+              >
+                Book a call instead
+              </motion.a>
+            </div>
           </form>
         </motion.div>
       </div>
