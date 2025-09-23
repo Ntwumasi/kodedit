@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getDemoLink, isDemoLinkValid, formatExpirationDate, type DemoLink } from '@/lib/demo-utils';
 import { getDemoSiteData, type DemoSiteData } from '@/lib/demo-data';
+import { WellnessTemplate, ConstructionTemplate, MovingTemplate, DesignTemplate, TechnicalTemplate, DevelopmentTemplate } from './templates';
 
 export default function DemoPage() {
   const params = useParams();
@@ -80,21 +81,63 @@ export default function DemoPage() {
     );
   }
 
-  // Dynamic Demo Template
+  // Dynamic Demo Template with varied layouts
+  const getTemplateVariant = () => {
+    // Different template variants based on business type
+    switch (siteData.id) {
+      case 'breathe':
+      case 'kendall':
+      case 'lexington':
+        return 'wellness';
+      case 'atlantic':
+      case 'finest':
+      case 'patrick':
+        return 'construction';
+      case 'bigfoot':
+        return 'moving';
+      case 'classic':
+        return 'design';
+      case 'electrical':
+        return 'technical';
+      case 'finnegan':
+        return 'development';
+      default:
+        return 'standard';
+    }
+  };
+
+  const templateVariant = getTemplateVariant();
+
+  // Different layouts based on business type
+  if (templateVariant === 'wellness') {
+    return <WellnessTemplate siteData={siteData} demo={demo} />;
+  } else if (templateVariant === 'construction') {
+    return <ConstructionTemplate siteData={siteData} demo={demo} />;
+  } else if (templateVariant === 'moving') {
+    return <MovingTemplate siteData={siteData} demo={demo} />;
+  } else if (templateVariant === 'design') {
+    return <DesignTemplate siteData={siteData} demo={demo} />;
+  } else if (templateVariant === 'technical') {
+    return <TechnicalTemplate siteData={siteData} demo={demo} />;
+  } else if (templateVariant === 'development') {
+    return <DevelopmentTemplate siteData={siteData} demo={demo} />;
+  }
+
+  // Default Standard Template
   return (
-    <div className="min-h-screen" style={{ backgroundColor: getColorValue(siteData.colors.background) }}>
+    <div className="min-h-screen bg-gray-50">
       {/* Demo expires banner */}
       <div className="bg-amber-500 text-amber-900 px-4 py-2 text-center text-sm font-medium">
         🔒 Demo expires on {demo && formatExpirationDate(demo.expiresAt)}
       </div>
 
       {/* Header */}
-      <header className="text-white shadow-xl" style={{ background: `linear-gradient(to right, ${getColorValue(siteData.colors.primary)}, ${getColorValue(siteData.colors.secondary)})` }}>
+      <header className="bg-white shadow-lg border-b-4" style={{ borderBottomColor: getColorValue(siteData.colors.primary) }}>
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row md:items-center gap-4">
             {/* Logo */}
             {siteData.logo?.type === 'custom' && (
-              <div className="bg-white p-2 rounded-lg">
+              <div className="p-3 rounded-lg" style={{ backgroundColor: getColorValue(siteData.colors.primary, 0.1) }}>
                 <div className="grid grid-cols-2 gap-1 w-12 h-12">
                   <div className="rounded-sm" style={{ backgroundColor: getColorValue(siteData.colors.primary) }}></div>
                   <div className="rounded-sm" style={{ backgroundColor: getColorValue(siteData.colors.secondary) }}></div>
@@ -103,11 +146,11 @@ export default function DemoPage() {
                 </div>
               </div>
             )}
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            <div className="flex-1">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight" style={{ color: getColorValue(siteData.colors.primary) }}>
                 {siteData.businessName.toUpperCase()}
               </h1>
-              <p className="text-white/90 text-sm">{siteData.tagline}</p>
+              <p className="text-gray-600 text-lg mt-1">{siteData.tagline}</p>
             </div>
           </div>
         </div>
