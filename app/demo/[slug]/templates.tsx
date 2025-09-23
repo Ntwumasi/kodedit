@@ -395,7 +395,7 @@ export function DesignTemplate({ siteData, demo }: TemplateProps) {
       {/* Contact */}
       <section className="py-20 text-white" style={{ backgroundColor: getColorValue(siteData.colors.primary) }}>
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-3xl font-light mb-8">Let's Create Something Beautiful Together</h3>
+          <h3 className="text-3xl font-light mb-8">Let&apos;s Create Something Beautiful Together</h3>
           <div className="max-w-2xl mx-auto">
             {siteData.contact.addresses && siteData.contact.addresses.length > 0 && (
               <div className="grid md:grid-cols-2 gap-8 mb-8">
