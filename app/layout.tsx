@@ -11,23 +11,33 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kodedit.com"),
-  title: "Kodedit - AI Solutions for Small Businesses",
-  description: "Transform your small business with AI. We provide chatbots, automation, and predictive analytics that save time, reduce costs, and accelerate growth.",
+  title: {
+    default: "Kodedit | AI Solutions for Small Businesses",
+    template: "%s | Kodedit",
+  },
+  description: "Kodedit helps small businesses grow with AI. Chatbots, automation, and analytics that save 40+ hours/week and reduce costs by 60%. Results in 2-4 weeks.",
   keywords: [
+    "Kodedit",
     "AI solutions",
-    "small business automation",
+    "small business AI",
     "AI chatbots",
-    "business process automation",
+    "business automation",
     "predictive analytics",
-    "AI implementation",
-    "business intelligence",
-    "customer service automation",
     "AI consulting",
-    "machine learning for business"
+    "process automation",
+    "customer service AI",
+    "AI implementation",
+    "machine learning",
+    "business intelligence"
   ],
-  authors: [{ name: "Kodedit" }],
+  authors: [{ name: "Kodedit", url: "https://kodedit.com" }],
   creator: "Kodedit",
   publisher: "Kodedit",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   robots: {
     index: true,
     follow: true,
@@ -43,26 +53,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://kodedit.com",
-    title: "Kodedit - AI Solutions for Small Businesses",
-    description: "Transform your small business with AI. We provide chatbots, automation, and predictive analytics that save time, reduce costs, and accelerate growth.",
     siteName: "Kodedit",
+    title: "Kodedit | AI Solutions for Small Businesses",
+    description: "Kodedit helps small businesses grow with AI. Chatbots, automation, and analytics that save 40+ hours/week and reduce costs by 60%.",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Kodedit - AI Solutions for Small Businesses",
-        type: "image/svg+xml",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kodedit - AI Solutions for Small Businesses",
-    description: "Transform your small business with AI. We provide chatbots, automation, and predictive analytics that save time, reduce costs, and accelerate growth.",
-    images: ["/og-image.svg"],
-    creator: "@kodedit",
     site: "@kodedit",
+    creator: "@kodedit",
+    title: "Kodedit | AI Solutions for Small Businesses",
+    description: "Kodedit helps small businesses grow with AI. Chatbots, automation, and analytics that save 40+ hours/week.",
+    images: ["/og-image.png"],
   },
   verification: {
     google: "your-google-verification-code",
@@ -71,6 +80,11 @@ export const metadata: Metadata = {
     canonical: "https://kodedit.com",
   },
   category: "Technology",
+  other: {
+    "msapplication-TileColor": "#fe3641",
+    "apple-mobile-web-app-title": "Kodedit",
+    "application-name": "Kodedit",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

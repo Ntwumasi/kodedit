@@ -60,49 +60,246 @@ function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   );
 }
 
-// Structured Data for SEO
-const structuredData = {
+// Structured Data for SEO - Multiple schemas for rich results
+const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://kodedit.com/#organization",
   "name": "Kodedit",
+  "alternateName": "Kodedit AI",
   "url": "https://kodedit.com",
-  "logo": "https://kodedit.com/og-image.svg",
-  "description": "AI solutions for small businesses. We provide chatbots, automation, and predictive analytics that save time, reduce costs, and accelerate growth.",
-  "foundingDate": "2024",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+1-315-723-1818",
-    "contactType": "Customer Service",
-    "email": "hello@kodedit.com"
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://kodedit.com/og-image.png",
+    "width": 1200,
+    "height": 630
   },
+  "image": "https://kodedit.com/og-image.png",
+  "description": "Kodedit helps small businesses grow with AI solutions including chatbots, automation, and predictive analytics.",
+  "foundingDate": "2024",
+  "founder": {
+    "@type": "Person",
+    "name": "Kodedit Team"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+1-315-723-1818",
+      "contactType": "sales",
+      "areaServed": "US",
+      "availableLanguage": "English"
+    },
+    {
+      "@type": "ContactPoint",
+      "email": "hello@kodedit.com",
+      "contactType": "customer service",
+      "areaServed": "US",
+      "availableLanguage": "English"
+    }
+  ],
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "US"
   },
   "sameAs": [
     "https://twitter.com/kodedit",
-    "https://linkedin.com/company/kodedit"
+    "https://linkedin.com/company/kodedit",
+    "https://github.com/kodedit"
   ],
-  "services": [
+  "knowsAbout": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Business Automation",
+    "Chatbots",
+    "Predictive Analytics"
+  ]
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://kodedit.com/#website",
+  "name": "Kodedit",
+  "alternateName": "Kodedit AI Solutions",
+  "url": "https://kodedit.com",
+  "publisher": {
+    "@id": "https://kodedit.com/#organization"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://kodedit.com/?search={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://kodedit.com/#services",
+  "name": "AI Solutions for Small Businesses",
+  "provider": {
+    "@id": "https://kodedit.com/#organization"
+  },
+  "description": "Comprehensive AI solutions including chatbots, process automation, and predictive analytics for small businesses.",
+  "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "AI Solutions Packages",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "AI Starter",
+          "description": "Simple chatbot or automation deployed in 2-3 weeks",
+          "offers": {
+            "@type": "Offer",
+            "price": "2000",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "2000",
+              "maxPrice": "5000",
+              "priceCurrency": "USD"
+            }
+          }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "AI Growth",
+          "description": "Multiple AI tools with significant productivity gains",
+          "offers": {
+            "@type": "Offer",
+            "price": "5000",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "5000",
+              "maxPrice": "12000",
+              "priceCurrency": "USD"
+            }
+          }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "AI Enterprise",
+          "description": "Complete AI transformation with custom solutions",
+          "offers": {
+            "@type": "Offer",
+            "price": "12000",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "12000",
+              "priceCurrency": "USD"
+            }
+          }
+        }
+      }
+    ]
+  }
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://kodedit.com/#webpage",
+  "url": "https://kodedit.com",
+  "name": "Kodedit | AI Solutions for Small Businesses",
+  "description": "Kodedit helps small businesses grow with AI. Chatbots, automation, and analytics that save 40+ hours/week and reduce costs by 60%.",
+  "isPartOf": {
+    "@id": "https://kodedit.com/#website"
+  },
+  "about": {
+    "@id": "https://kodedit.com/#organization"
+  },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://kodedit.com/og-image.png"
+  },
+  "mainEntity": {
+    "@id": "https://kodedit.com/#organization"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
     {
-      "@type": "Service",
-      "name": "AI Chatbots & Customer Service",
-      "description": "24/7 customer support automation with intelligent chatbots"
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://kodedit.com"
     },
     {
-      "@type": "Service",
-      "name": "Process Automation",
-      "description": "Automate repetitive tasks and workflows for increased efficiency"
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI Solutions",
+      "item": "https://kodedit.com/#services"
     },
     {
-      "@type": "Service",
-      "name": "Predictive Analytics",
-      "description": "Data-driven insights and forecasting for better business decisions"
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Pricing",
+      "item": "https://kodedit.com/#packages"
     },
     {
-      "@type": "Service",
-      "name": "AI Strategy & Implementation",
-      "description": "Complete AI transformation roadmap and implementation"
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Contact",
+      "item": "https://kodedit.com/#contact"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What AI solutions does Kodedit offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kodedit offers AI chatbots for 24/7 customer support, process automation to streamline workflows, predictive analytics for data-driven decisions, and complete AI strategy implementation for small businesses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much do Kodedit AI solutions cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kodedit offers three packages: AI Starter ($2k-$5k) for simple chatbots or automation, AI Growth ($5k-$12k) for multiple AI tools, and AI Enterprise ($12k+) for complete AI transformation with custom solutions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How quickly can I see results with Kodedit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most clients see results within 2-4 weeks. Our AI Starter package can deploy a simple chatbot or automation tool in just 2-3 weeks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need technical expertise to use Kodedit AI solutions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No technical expertise is needed. Kodedit handles the entire implementation process, from strategy to deployment, and provides training and ongoing support."
+      }
     }
   ]
 };
@@ -116,10 +313,30 @@ export default function KodeditLanding() {
 
   return (
     <>
-      {/* Structured Data for SEO */}
+      {/* Structured Data for SEO - Multiple schemas for rich Google results */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="min-h-screen w-full bg-[#171717] text-white overflow-x-hidden">
       {!videoComplete && (
