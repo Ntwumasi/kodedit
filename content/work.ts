@@ -29,8 +29,24 @@ export const VENTURES: Venture[] = [
     href: "/work/medsys",
   },
   {
-    slug: "venture-002",
+    slug: "interviews-study",
     index: "Venture 002",
+    name: "interviews.study",
+    domain: "interviews.study",
+    status: "in production",
+    tagline: "AI mock interviews for software engineers.",
+    summary: [
+      "Three interview formats on one platform: coding with real-time execution, system design on an interactive whiteboard, and behavioural practice against the STAR framework.",
+      "An interviewer that asks follow-up questions and probes the reasoning, rather than waiting quietly for a final answer.",
+      "Feedback that scores the attempt, names the specific things to fix, and points at what to study next.",
+    ],
+    sector: "Developer education",
+    year: "2026 —",
+    href: "https://interviews.study",
+  },
+  {
+    slug: "venture-003",
+    index: "Venture 003",
     name: "Unannounced",
     status: "in development",
     tagline: "Supply and inventory for pharmacies without same-day resupply.",
@@ -44,6 +60,7 @@ export const VENTURES: Venture[] = [
 ];
 
 export const MEDSYS = VENTURES[0];
+export const INTERVIEWS = VENTURES[1];
 
 /** Department-by-department breakdown for the case study. */
 export type Department = {

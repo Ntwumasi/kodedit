@@ -1,6 +1,6 @@
 export const SITE = {
   name: "Kodedit",
-  legalName: "Kodedit",
+  legalName: "Kodedit LLC",
   domain: "kodedit.io",
   url: "https://kodedit.io",
   email: "hello@kodedit.io",
@@ -31,13 +31,13 @@ export const HERO_LINES = [
 ] as const;
 
 export const HERO_SUPPORT =
-  "We research how intelligent systems behave inside real clinical and operational workflows, then design, build, and operate the systems that run them.";
+  "We research how intelligent systems behave inside the workflows people actually work in, then design, build, and operate the systems that run them.";
 
 /** Proof strip. Every figure here is structural, not a growth metric. */
 export const PROOF = [
-  { value: "7", label: "departments connected" },
-  { value: "1", label: "EMR platform in production" },
-  { value: "Voice-first", label: "consultation capture" },
+  { value: "2", label: "ventures in production" },
+  { value: "7", label: "clinic departments connected" },
+  { value: "3", label: "interview formats simulated" },
   { value: "Offline-first", label: "built for unstable power" },
 ] as const;
 

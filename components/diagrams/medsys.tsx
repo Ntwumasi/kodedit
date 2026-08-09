@@ -1,76 +1,9 @@
 /**
- * Hairline line-diagrams of the MedSys interfaces.
- *
- * These are schematics, not screenshots. They are drawn with the same 1px
- * rule as the rest of the site and deliberately abstract patient content into
- * rules rather than inventing records. Swap for real product captures by
- * replacing the child of the surrounding <BrowserFrame>.
+ * Hairline line-diagrams of the MedSys interfaces. Swap for real product
+ * captures by replacing the child of the surrounding <BrowserFrame>.
  */
 
-const LINE = "#1F1F23";
-const LINE_BRIGHT = "#2E2E35";
-const INK = "#F4F4F5";
-const INK_2 = "#A1A1AA";
-const INK_3 = "#7A7A84";
-const ACCENT = "#FE3641";
-const SURFACE = "#111113";
-
-function Svg({
-  viewBox,
-  children,
-  label,
-  minWidth = 660,
-}: {
-  viewBox: string;
-  children: React.ReactNode;
-  label: string;
-  /** Below this the mono labels stop being readable, so the figure scrolls. */
-  minWidth?: number;
-}) {
-  return (
-    <svg
-      viewBox={viewBox}
-      role="img"
-      aria-label={label}
-      className="block h-auto w-full"
-      style={{ minWidth }}
-      preserveAspectRatio="xMidYMid meet"
-    >
-      {children}
-    </svg>
-  );
-}
-
-/** A run of hairline "text" rules. */
-function Rules({
-  x,
-  y,
-  widths,
-  gap = 12,
-  color = LINE,
-}: {
-  x: number;
-  y: number;
-  widths: number[];
-  gap?: number;
-  color?: string;
-}) {
-  return (
-    <>
-      {widths.map((w, i) => (
-        <rect
-          key={i}
-          x={x}
-          y={y + i * gap}
-          width={w}
-          height={4}
-          rx={2}
-          fill={color}
-        />
-      ))}
-    </>
-  );
-}
+import { ACCENT, INK, INK_2, INK_3, LINE, LINE_BRIGHT, Rules, SURFACE, Svg } from "./base";
 
 /* ------------------------------------------------------------------ */
 /* fig. 01 — consultation with voice dictation                         */

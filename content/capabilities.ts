@@ -8,12 +8,12 @@ export const CAPABILITIES: Capability[] = [
   {
     index: "01",
     title: "Applied research",
-    body: "We study how AI behaves inside real clinical and business workflows — where it helps, where it misleads, and where a user quietly stops trusting it. What the lab finds goes directly into what we ship.",
+    body: "We study how AI behaves inside the workflows people actually work in — where it helps, where it misleads, and where someone quietly stops trusting it. What the lab finds goes directly into what we ship.",
   },
   {
     index: "02",
     title: "Product engineering",
-    body: "We ship complete systems, not demos. Records, scheduling, permissions, billing, audit trails — the unglamorous nine-tenths that decides whether software survives contact with a working clinic.",
+    body: "We ship complete systems, not demos. Records, scheduling, permissions, billing, audit trails — the unglamorous nine-tenths that decides whether software survives contact with real work.",
   },
   {
     index: "03",

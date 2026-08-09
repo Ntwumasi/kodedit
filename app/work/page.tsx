@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { Shell } from "@/components/primitives/Section";
 import { MonoLabel, StatusDot } from "@/components/primitives/MonoLabel";
 import { Reveal } from "@/components/primitives/Reveal";
@@ -7,19 +8,80 @@ import { ColumnGuides } from "@/components/primitives/ColumnGuides";
 import { BrowserFrame } from "@/components/primitives/BrowserFrame";
 import { Button } from "@/components/primitives/Button";
 import { DepartmentGraph } from "@/components/diagrams/medsys";
-import { VENTURES } from "@/content/work";
+import { InterviewSession } from "@/components/diagrams/interviews";
+import { VENTURES, type Venture } from "@/content/work";
 import { CTA, SITE } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Ventures built and operated by the Kodedit studio. MedSys, an EMR platform running in clinics today, is venture 001.",
+    "Ventures built and operated by the Kodedit studio: MedSys, an EMR platform for clinics that still run on paper, and interviews.study, AI mock interviews for software engineers.",
   alternates: { canonical: "/work" },
   openGraph: { title: "Work — Kodedit", url: "/work" },
 };
 
+function VentureArticle({
+  venture,
+  figure,
+  caption,
+  cta,
+  index,
+}: {
+  venture: Venture;
+  figure: ReactNode;
+  caption: string;
+  cta: ReactNode;
+  index: number;
+}) {
+  return (
+    <Reveal index={index}>
+      <article>
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <MonoLabel as="p" className="mb-4 flex items-center gap-2.5">
+              <StatusDot />
+              {venture.index} · {venture.status}
+            </MonoLabel>
+            <h2 className="t-section text-ink">{venture.name}</h2>
+            <p className="t-lead measure mt-4">{venture.tagline}</p>
+          </div>
+          <dl className="flex gap-10 md:shrink-0">
+            <div>
+              <dt className="t-mono-label mb-2">Sector</dt>
+              <dd className="text-[14px] text-ink">{venture.sector}</dd>
+            </div>
+            <div>
+              <dt className="t-mono-label mb-2">Live since</dt>
+              <dd className="text-[14px] text-ink">{venture.year}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="mt-12">
+          <BrowserFrame url={venture.domain ?? ""} caption={caption}>
+            {figure}
+          </BrowserFrame>
+        </div>
+
+        <ul className="mt-12 grid gap-8 border-t border-hairline pt-10 md:grid-cols-3 md:gap-10">
+          {venture.summary.map((line, i) => (
+            <li key={line}>
+              <MonoLabel as="p" className="mb-3">
+                {String(i + 1).padStart(2, "0")}
+              </MonoLabel>
+              <p className="t-body">{line}</p>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-10">{cta}</p>
+      </article>
+    </Reveal>
+  );
+}
+
 export default function WorkPage() {
-  const [medsys, teaser] = VENTURES;
+  const [medsys, interviews, teaser] = VENTURES;
 
   return (
     <>
@@ -39,67 +101,47 @@ export default function WorkPage() {
         </Shell>
       </header>
 
-      {/* Venture 001 */}
       <Shell className="py-16 md:py-24">
-        <Reveal>
-          <article>
-            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-              <div>
-                <MonoLabel as="p" className="mb-4 flex items-center gap-2.5">
-                  <StatusDot />
-                  {medsys.index} · {medsys.status}
-                </MonoLabel>
-                <h2 className="t-section text-ink">
-                  <Link href="/work/medsys" className="link-underline">
-                    {medsys.name}
-                  </Link>
-                </h2>
-                <p className="t-lead measure mt-4">{medsys.tagline}</p>
-              </div>
-              <dl className="flex gap-10 md:shrink-0">
-                <div>
-                  <dt className="t-mono-label mb-2">Sector</dt>
-                  <dd className="text-[14px] text-ink">{medsys.sector}</dd>
-                </div>
-                <div>
-                  <dt className="t-mono-label mb-2">Live since</dt>
-                  <dd className="text-[14px] text-ink">{medsys.year}</dd>
-                </div>
-              </dl>
+        <VentureArticle
+          venture={medsys}
+          index={0}
+          figure={
+            <div className="px-4 py-6 md:px-8 md:py-10">
+              <DepartmentGraph />
             </div>
+          }
+          caption="fig. 01 — seven departments resolving to one patient record"
+          cta={
+            <Link
+              href="/work/medsys"
+              className="link-underline text-[14px] text-ink"
+            >
+              Read the case study →
+            </Link>
+          }
+        />
 
-            <div className="mt-12">
-              <BrowserFrame
-                url={medsys.domain ?? ""}
-                caption="fig. 01 — seven departments resolving to one patient record"
+        <div className="mt-20 border-t border-hairline pt-20 md:mt-28 md:pt-28">
+          <VentureArticle
+            venture={interviews}
+            index={0}
+            figure={<InterviewSession />}
+            caption="fig. 02 — a system design session, scored on the axes an interviewer actually weighs"
+            cta={
+              <a
+                href="https://interviews.study"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="link-underline text-[14px] text-ink"
               >
-                <div className="px-4 py-6 md:px-8 md:py-10">
-                  <DepartmentGraph />
-                </div>
-              </BrowserFrame>
-            </div>
+                Visit interviews.study ↗
+              </a>
+            }
+          />
+        </div>
 
-            <ul className="mt-12 grid gap-8 border-t border-hairline pt-10 md:grid-cols-3 md:gap-10">
-              {medsys.summary.map((line, i) => (
-                <li key={line}>
-                  <MonoLabel as="p" className="mb-3">
-                    {String(i + 1).padStart(2, "0")}
-                  </MonoLabel>
-                  <p className="t-body">{line}</p>
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-10">
-              <Link href="/work/medsys" className="link-underline text-[14px] text-ink">
-                Read the case study →
-              </Link>
-            </p>
-          </article>
-        </Reveal>
-
-        {/* Venture 002 */}
-        <Reveal index={1} className="mt-20 md:mt-28">
+        {/* Venture 003 */}
+        <Reveal className="mt-20 md:mt-28">
           <article className="rounded-[10px] border border-dashed border-hairline p-8 md:p-12">
             <MonoLabel as="p" className="mb-5 flex items-center gap-2.5">
               <StatusDot />

@@ -50,7 +50,8 @@ function H2({ id, n, children }: { id: string; n: string; children: React.ReactN
 }
 
 export default function MedSysPage() {
-  const teaser = VENTURES[1];
+  // The in-development slot, not the other shipped venture.
+  const teaser = VENTURES.find((v) => v.status === "in development") ?? VENTURES[2];
 
   return (
     <>

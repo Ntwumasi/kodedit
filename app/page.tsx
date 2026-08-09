@@ -10,7 +10,7 @@ import { TerminalLine } from "@/components/site/TerminalLine";
 import { ConsultationDiagram } from "@/components/diagrams/medsys";
 import { CAPABILITIES } from "@/content/capabilities";
 import { NOTES } from "@/content/notes";
-import { MEDSYS } from "@/content/work";
+import { INTERVIEWS, MEDSYS } from "@/content/work";
 import { CTA, ETHOS, HERO_LINES, HERO_SUPPORT, PROOF, SITE } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -121,6 +121,31 @@ export default function HomePage() {
             </Reveal>
           ))}
         </ul>
+
+        {/* Second shipped venture — a single hairline row, so it reads as
+            also-in-production without competing with the flagship. */}
+        <Reveal index={1} className="mt-12">
+          <a
+            href={`https://${INTERVIEWS.domain}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="group flex flex-col gap-3 border-t border-hairline py-7 transition-colors duration-200 hover:bg-surface/60 md:-mx-4 md:flex-row md:items-baseline md:justify-between md:px-4"
+          >
+            <span className="flex flex-col gap-3 md:flex-row md:items-baseline md:gap-6">
+              <MonoLabel as="span" className="flex items-center gap-2.5">
+                <StatusDot />
+                {INTERVIEWS.index} · {INTERVIEWS.status}
+              </MonoLabel>
+              <span className="text-[1.0625rem] font-medium tracking-[-0.015em] text-ink">
+                {INTERVIEWS.name}
+              </span>
+            </span>
+            <span className="t-body text-[0.9375rem] md:text-right">
+              {INTERVIEWS.tagline}{" "}
+              <span className="whitespace-nowrap text-ink">↗</span>
+            </span>
+          </a>
+        </Reveal>
       </Section>
 
       {/* ------------------------------------------------- Capabilities */}

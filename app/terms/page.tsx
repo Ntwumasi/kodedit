@@ -38,7 +38,7 @@ export default function TermsPage() {
           <section>
             <h2>1. What these terms cover</h2>
             <p>
-              Kodedit is an AI studio and venture lab, incorporated in Delaware,
+              Kodedit LLC is an AI studio and venture lab, incorporated in Delaware,
               United States. These terms govern your use of{" "}
               <strong>kodedit.io</strong>. By using the site you accept them. If
               you do not, please stop using the site.
@@ -255,7 +255,7 @@ export default function TermsPage() {
             <h2>13. Contact</h2>
             <p>Questions about these terms go to:</p>
             <div>
-              <p>Kodedit</p>
+              <p>Kodedit LLC</p>
               <p>Delaware, United States</p>
               <p>
                 Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>

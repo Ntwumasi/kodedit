@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           <section>
             <h2>1. Who we are, and what this covers</h2>
             <p>
-              Kodedit is an AI studio and venture lab, incorporated in Delaware,
+              Kodedit LLC is an AI studio and venture lab, incorporated in Delaware,
               United States, and working remotely. In this policy
               &ldquo;we&rdquo; and &ldquo;the studio&rdquo; mean Kodedit, and
               &ldquo;you&rdquo; means anyone visiting this site or contacting us
@@ -276,7 +276,7 @@ export default function PrivacyPage() {
               Questions about this policy, or about anything we hold, go to:
             </p>
             <div>
-              <p>Kodedit</p>
+              <p>Kodedit LLC</p>
               <p>Delaware, United States</p>
               <p>
                 Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
