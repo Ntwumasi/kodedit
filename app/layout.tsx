@@ -1,105 +1,66 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-
-// Using Inter as it's similar to Daikon's clean, modern aesthetic
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
+import { Nav } from "@/components/site/Nav";
+import { Footer } from "@/components/site/Footer";
+import { SITE } from "@/content/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kodedit.com"),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "Kodedit | Full Lifecycle AI Development Platform",
-    template: "%s | Kodedit",
+    default: "Kodedit — AI studio and venture lab",
+    template: "%s — Kodedit",
   },
-  description: "AI-powered development covering the full software lifecycle. From requirements to deployment with built-in quality gates, explainable AI, and enterprise governance.",
-  keywords: [
-    "Kodedit",
-    "AI coding assistant",
-    "AI development platform",
-    "code generation",
-    "developer tools",
-    "AI code review",
-    "automated testing",
-    "software development AI",
-    "full lifecycle development",
-    "explainable AI",
-    "code quality",
-    "AI IDE",
-    "coding assistant",
-    "GitHub Copilot alternative",
-    "Cursor alternative",
-    "developer productivity"
-  ],
-  authors: [{ name: "Kodedit", url: "https://kodedit.com" }],
-  creator: "Kodedit",
-  publisher: "Kodedit",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
+  description: SITE.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    url: SITE.url,
+    title: "Kodedit — AI studio and venture lab",
+    description: SITE.description,
+    locale: "en_GB",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kodedit — AI studio and venture lab",
+    description: SITE.description,
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://kodedit.com",
-    siteName: "Kodedit",
-    title: "Kodedit | Full Lifecycle AI Development Platform",
-    description: "AI-powered development covering the full software lifecycle. Built-in quality gates, explainable AI, and enterprise governance.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Kodedit - Full Lifecycle AI Development Platform",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@kodedit",
-    creator: "@kodedit",
-    title: "Kodedit | Full Lifecycle AI Development Platform",
-    description: "AI for the full development lifecycle. Not just code completion - requirements, planning, testing, review, and maintenance.",
-    images: ["/og-image.png"],
-  },
-  alternates: {
-    canonical: "https://kodedit.com",
-  },
-  category: "Developer Tools",
-  other: {
-    "msapplication-TileColor": "#fe3641",
-    "apple-mobile-web-app-title": "Kodedit",
-    "application-name": "Kodedit",
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#fe3641" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body className={`${inter.className} bg-[#171717] text-white antialiased`}>{children}</body>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-screen bg-canvas text-ink antialiased">
+        {/* Entrances are JS-triggered; without JS everything stays visible. */}
+        <noscript>
+          <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-[6px] focus:border focus:border-hairline-bright focus:bg-surface focus:px-4 focus:py-2 focus:text-[13.5px] focus:text-ink"
+        >
+          Skip to content
+        </a>
+        <Nav />
+        <main id="main">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

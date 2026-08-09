@@ -1,0 +1,43 @@
+A clinic in Ghana loses power on a schedule nobody publishes. The generator covers some of it. Mobile data covers some of the rest. What you cannot assume, on any given Tuesday, is that both the grid and the network are up at the moment a nurse presses save.
+
+Most clinical software treats this as an error condition. There is an online application, and when the connection drops there is a message apologising for the connection. That model is not merely inconvenient in this environment — it is wrong about which state is exceptional. For MedSys the network is an optimisation. The clinic is the source of truth, and synchronisation is something that happens when circumstances allow.
+
+## Writes go local first, always
+
+Every write in MedSys lands in a local store on the device before anything touches a server. The interface confirms the action against the local write, not against a network round trip. A nurse recording vitals during an outage gets exactly the same interaction as a nurse recording vitals with four bars of signal, because the interaction does not depend on the difference.
+
+Synchronisation runs behind that as a queue. It drains when it can, retries when it cannot, and never blocks the interface. The one thing it must never do is silently drop a write, which is why the queue is persisted rather than held in memory — an abrupt power loss must not be able to take unsent data with it.
+
+## Conflicts are a data-model problem, not a merge problem
+
+The received wisdom about offline sync is that you need conflict resolution. In practice, most of the conflict disappears if you model the domain correctly, and the remainder is best avoided rather than resolved.
+
+Clinical records turned out to be mostly single-writer. One clinician owns an encounter at a time; a consultation note is not being edited concurrently in two rooms. For that class of data we use an append-only event log per encounter. Two devices that were offline together produce two sets of events that merge by timestamp without contradiction, because nothing overwrites anything.
+
+Pharmacy stock is where it gets interesting, and it is where last-writer-wins would quietly destroy data. Two dispensers working through the same queue during an outage both hold a starting count of 40. One dispenses 6, the other dispenses 4. If each writes an absolute value, the record ends at 34 or 36 depending on sync order — and ten units have gone missing from the ledger either way.
+
+So stock is never written as an absolute. It is written as a delta: `-6`, `-4`. Deltas commute. Applied in either order they produce 30, which is the correct answer, and no merge logic was required to get there. Absolute counts exist only as periodic reconciliations, which are explicit stock-take events with a person's name attached.
+
+The general rule we now apply to any new venture: if two offline actors can touch the same value, express the write as an operation rather than a state.
+
+## Identity has to be generated locally
+
+A queue number or folder number issued by a central server is unavailable exactly when the clinic most needs to register a patient. Identifiers are therefore generated on the device, with a short device prefix and a local sequence, which makes collisions structurally impossible without coordination. Human-facing numbers stay short enough to read aloud across a room, because they are read aloud across a room constantly.
+
+## The interface has to be honest about state
+
+A single global connection indicator is not enough, because it answers a question nobody is asking. The question a nurse has is not "is the clinic online" but "is *this* record safe."
+
+Every record carries its own sync state — held locally, syncing, or confirmed on the server. It is a small mono marker, not a banner. Staff learn to read it within a day, and it removes the anxious re-saving behaviour we saw with systems that only offered a spinner. Trust comes from the system telling the truth about itself at the granularity the user cares about.
+
+## Assume the process dies mid-sentence
+
+Power loss does not wait for a form to be submitted. Persisting on submit means a half-written consultation note evaporates when a generator stutters, and the doctor writes the next one on paper, and you have lost the clinic.
+
+MedSys persists at meaningful boundaries throughout — field-level for text, immediately for any structured selection — so the worst case is a few seconds of dictation rather than an encounter. Restart restores the encounter in place, with the transcript intact.
+
+## Test by pulling the plug
+
+None of this is verifiable by mocking a network. We test offline behaviour by physically disconnecting devices mid-workflow: mid-dictation, mid-dispense, mid-registration. Then we reconnect two devices that diverged and check the ledger by hand.
+
+It is unglamorous, it does not fit neatly in CI, and it is the only test methodology we trust for this class of failure. The bugs that matter here are the ones that only appear when two offline actors disagree about reality — and those do not show up in a unit test that politely resolves a promise.

@@ -1,0 +1,33 @@
+A clinical form is an artifact of the database, not of the encounter. It exists because a table has columns. The doctor in front of a patient has no columns — they have a person describing a problem in the order the problem occurred to them.
+
+We spent time in consulting rooms in Accra before writing any of the MedSys consultation interface, and the pattern was consistent enough to design around. The doctor listens, writes a few lines on paper, and enters nothing into a computer during the visit. Data entry happens afterwards, in a batch, from memory and shorthand — or it does not happen at all. Every structured field we could have designed would have been filled in after the fact by someone reconstructing a conversation that ended twenty minutes ago.
+
+## Forms force premature commitment
+
+The specific failure of a form is ordering. A form asks for a diagnosis in a field that sits on screen from the first second of the consultation. But a diagnosis is the *output* of the history, not an input to it. To fill the form in the order it is presented, the clinician has to either leave fields empty and come back — which means holding the whole encounter in working memory — or commit early to an assessment they have not finished forming.
+
+Paper does not have this problem. Paper accepts thoughts in the order they arrive. That is the actual reason paper persists in clinics that own perfectly good computers, and it is why "the staff need more training" is usually a misdiagnosis of the problem.
+
+## Speech is already the native format
+
+Doctors narrate. They narrate to colleagues, to students, and to themselves. The consultation already exists as spoken language before anyone tries to make it exist as data. Recording that speech is a capture problem with a known solution; the hard part is what happens next.
+
+Raw transcript alone is not useful. You cannot bill from it, search it reliably, or pull an active medication list out of it. So the design question is not "voice or forms" — it is *when* the structuring happens and *who does it*.
+
+MedSys puts the structuring after the capture. The doctor speaks the consultation. The system separates it into subjective, objective, assessment, and plan, and drops each part into the right field. The doctor then reads and corrects. Editing a mostly-correct note is a fundamentally cheaper cognitive act than composing one from an empty grid, and — this is the part that matters — it happens *after* the thinking is done rather than during it.
+
+## Three rules that came out of the room
+
+**Keep the transcript.** The structured note is a derived artifact. The raw transcript stays attached to the encounter permanently. When the structuring is wrong, and it will sometimes be wrong, the source is one click away and nothing has been destroyed. A system that discards its input in favour of its own interpretation is asking to be trusted more than it has earned.
+
+**Push to talk, never always on.** An always-listening microphone in a consulting room is a privacy problem and a trust problem, and it captures the wrong things — the corridor conversation, the next patient's name. An explicit press-and-hold makes the recording boundary visible to both the doctor and the patient. It also gives us a clean signal about what the doctor considers part of the record.
+
+**Confirm numbers and drug names visually.** These are where speech recognition fails and where failure is most expensive. "Fifteen" and "fifty" are one phoneme apart and one order of magnitude apart. Drug names are dense with near-homophones, and in a clinic in Accra a consultation moves between English and Twi mid-sentence. We constrain drug recognition to the clinic's own formulary rather than an open vocabulary, and every dosage figure is surfaced as an editable chip that the doctor has to look at before the note can be signed. The system is allowed to guess; it is not allowed to guess quietly.
+
+## What we watch to know it is working
+
+Not words per minute. Not time-to-complete, which rewards a system for rushing a clinician.
+
+We watch whether the doctor looks at the patient. It is a crude proxy and we measure it crudely — by sitting in the room. But it captures the thing the form was costing and the reason the paper survived. A consultation where the clinician spends the visit facing a person, and two minutes afterwards correcting a draft, is a better consultation than one where they spend the visit facing a screen and finish on time.
+
+The second signal is retrospective: how much of the note gets edited. Very low edit rates mean the doctor has stopped reading, which is worse than a high edit rate. We would rather ship a system that is visibly imperfect and therefore checked than one that is trusted by default.

@@ -241,7 +241,7 @@ export default function IntakeForm() {
     { 
       title: "Welcome", 
       icon: <Sparkles className="h-6 w-6" />,
-      description: "Let&apos;s create something amazing together"
+      description: "Let’s create something amazing together"
     },
     { 
       title: "Basic Information", 
@@ -281,7 +281,7 @@ export default function IntakeForm() {
     { 
       title: "Communication", 
       icon: <MessageSquare className="h-6 w-6" />,
-      description: "How we&apos;ll work together"
+      description: "How we’ll work together"
     },
     { 
       title: "Success Metrics", 

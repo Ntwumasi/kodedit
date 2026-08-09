@@ -1,0 +1,45 @@
+Interaction checking is the feature every EMR advertises and every clinician turns off in their head. The warnings fire, the clinician clicks through, and the clinical value of the whole subsystem rounds to zero. Override rates in deployed systems are high enough that the alert has stopped being information and become friction with a legal function.
+
+The usual explanation is that clinicians are impatient. That is not what we observed. The clinicians we watched were reading the first two or three alerts of a session carefully, and stopping once the alerts had established themselves as noise. That is a rational response to a signal with a bad prior, and it means the failure is in the alert design.
+
+## Alerts fire on possibility, not consequence
+
+The root cause is that most interaction engines alert on whether an interaction *exists* in a reference database, not on whether it should change *this* prescription for *this* patient. A theoretical interaction with no clinical consequence at the prescribed dose is presented with the same visual weight as a combination that could put someone in the hospital. Once those two things look the same, the clinician has to triage every alert manually, and the cheapest correct strategy is to dismiss all of them and rely on training.
+
+So the design problem is not how to make the alert harder to dismiss. It is how to make dismissal unnecessary.
+
+## A severity floor, and three channels
+
+MedSys sorts every interaction into one of three channels before it reaches a person.
+
+**Interrupt.** The prescription would change. Contraindicated combinations, and interactions where the recommended action is to stop, substitute, or materially adjust the dose. These take a modal, they block, and they are rare enough in a normal session that a clinician has not been trained to expect one.
+
+**Inline.** Worth knowing at the moment of prescribing but not worth stopping for. These render next to the drug in the prescribing list, in place, with no dismissal required. The clinician reads them if they want them; nothing has to be clicked to make them go away.
+
+**Chart only.** Recorded to the encounter, visible on review, never surfaced during prescribing. The interaction is documented — which is what the medico-legal requirement actually asks for — without pretending it needs a decision.
+
+The floor is the whole mechanism. If an alert cannot articulate a change to the prescription, it does not get to interrupt. We would rather miss the chance to inform than spend the interrupt budget, because the interrupt budget is real and it is small. Every low-value modal makes the next high-value modal less likely to be read.
+
+## Say the action, not the fact
+
+"Interaction detected: warfarin / ciprofloxacin" is a fact. It requires the clinician to retrieve the mechanism, judge the magnitude, and decide the action, under time pressure, with a patient waiting.
+
+"Ciprofloxacin raises warfarin effect — consider an alternative antibiotic or increase INR monitoring" is an action. It costs the same screen space.
+
+Three constraints followed from this. The alert names both agents explicitly, so the clinician can tell instantly whether it concerns the drug they are adding or two drugs already on the chart. It states the mechanism in one clause, because a clinician who understands *why* can judge whether it applies to their patient. And it proposes at least one concrete next step, because an alert with no suggested action is an alert asking the clinician to do the system's work.
+
+## Overriding must be cheap, and recorded
+
+Mandatory free-text reason fields are a reliable way to generate the string "ok" a thousand times. We record the override, the alert, the clinician, and the timestamp automatically, and make the reason optional. The audit trail is complete either way, and the clinician is not taxed for disagreeing with a machine that is frequently wrong.
+
+Overrides are also the primary tuning signal. An alert with a persistently high override rate across many clinicians is not a compliance problem — it is a misclassified alert, and it gets demoted a channel. The alert set is meant to move.
+
+## Check twice, with different eyes
+
+Interactions are evaluated at prescribing and again at dispensing. This is deliberate redundancy, and it works because the two checks are performed by different people in different mental states. The doctor is mid-consultation with the patient in front of them; the pharmacist is looking at a queue of drugs with no competing demand for attention. The pharmacist catches what the doctor's context caused them to skim.
+
+It also means the pharmacy is not merely executing an order. Giving the dispensing queue real authority to raise a question is the difference between a checking step and a rubber stamp.
+
+## The metric is not alert count
+
+A system that fires more alerts is not safer. We track the override rate as the primary health signal — a falling override rate means the surviving alerts are earning their interruptions — alongside how often the pharmacy check catches something the prescribing check let through. If the pharmacy is catching a lot, the prescribing floor is set wrong.

@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Constructed on first request rather than at module load, so a production
+// build does not require RESEND_API_KEY to be present at build time.
+let _resend: Resend | null = null;
+function getResend(): Resend {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY);
+  return _resend;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -308,7 +314,7 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     try {
-      const emailResult = await resend.emails.send({
+      const emailResult = await getResend().emails.send({
         from: 'Kodedit <onboarding@resend.dev>',
         to: ['kodedit.io@gmail.com'],
         subject: `New Project Intake: ${data.businessName} (${data.fullName})`,
@@ -371,7 +377,7 @@ export async function POST(request: NextRequest) {
 </html>
       `;
 
-      await resend.emails.send({
+      await getResend().emails.send({
         from: 'Kodedit <onboarding@resend.dev>',
         to: [data.email],
         subject: 'Thank you for your project submission!',

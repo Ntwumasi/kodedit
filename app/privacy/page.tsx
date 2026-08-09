@@ -1,236 +1,290 @@
-"use client";
+import type { Metadata } from "next";
+import { Shell } from "@/components/primitives/Section";
+import { MonoLabel } from "@/components/primitives/MonoLabel";
+import { SITE } from "@/content/site";
 
-import Link from "next/link";
-
-function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
-  const sizes = {
-    sm: "h-4 w-4",
-    md: "h-5 w-5",
-    lg: "h-6 w-6"
-  };
-
-  return (
-    <div className="relative">
-      <svg viewBox="0 0 24 24" fill="currentColor" className={`${sizes[size]} text-[#fe3641]`}>
-        <rect x="2" y="6" width="4" height="2" rx="1" />
-        <circle cx="8" cy="7" r="1" />
-        <rect x="12" y="6" width="4" height="2" rx="1" />
-        <rect x="18" y="6" width="2" height="2" rx="1" />
-        <rect x="2" y="10" width="2" height="2" rx="1" />
-        <rect x="6" y="10" width="4" height="2" rx="1" />
-        <rect x="12" y="10" width="4" height="2" rx="1" />
-        <rect x="18" y="10" width="2" height="2" rx="1" />
-        <rect x="2" y="14" width="4" height="2" rx="1" />
-        <circle cx="8" cy="15" r="1" />
-        <circle cx="12" cy="15" r="1" />
-        <circle cx="16" cy="15" r="1" />
-        <rect x="20" y="14" width="2" height="2" rx="1" />
-        <rect x="2" y="18" width="2" height="2" rx="1" />
-        <circle cx="6" cy="19" r="1" />
-        <circle cx="10" cy="19" r="1" />
-        <rect x="14" y="18" width="4" height="2" rx="1" />
-      </svg>
-      <div className={`absolute inset-0 ${sizes[size]} bg-[#fe3641] rounded-sm blur-sm animate-pulse opacity-30`} />
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  title: "Privacy",
+  description:
+    "How Kodedit handles information sent through kodedit.io. No cookies, no analytics, no third-party requests — only what you send us directly.",
+  alternates: { canonical: "/privacy" },
+  robots: { index: true, follow: true },
+};
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#171717] text-white">
-      {/* Header */}
-      <header className="border-b border-white/10 bg-[#171717]/80 backdrop-blur-xl sticky top-0 z-50">
-        <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Logo size="md" />
-            <span className="text-lg font-bold tracking-tight">Kodedit</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <Link href="/#features" className="text-zinc-300 hover:text-white transition-colors">Features</Link>
-            <Link href="/#pricing" className="text-zinc-300 hover:text-white transition-colors">Pricing</Link>
-            <Link href="/research" className="text-zinc-300 hover:text-white transition-colors">Research</Link>
-            <Link href="/about" className="text-zinc-300 hover:text-white transition-colors">About</Link>
-          </nav>
-          <Link
-            href="/#waitlist"
-            className="rounded-full bg-gradient-to-r from-[#fe3641] to-[#ff4757] text-white px-5 py-2 text-sm font-medium"
-          >
-            Join Waitlist
-          </Link>
-        </div>
+    <>
+      <header className="border-b border-hairline">
+        <Shell className="py-16 md:py-20">
+          <MonoLabel as="p" className="mb-7">
+            Legal
+          </MonoLabel>
+          <h1 className="text-[clamp(1.875rem,4vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+            Privacy
+          </h1>
+          <p className="t-lead measure-read mt-6">
+            This site sets no cookies, runs no analytics, and loads nothing from
+            a third party. The only information we hold is what you send us.
+          </p>
+          <MonoLabel as="p" className="mt-8">
+            Last updated: August 2026
+          </MonoLabel>
+        </Shell>
       </header>
 
-      {/* Content */}
-      <main className="py-16 md:py-24">
-        <div className="mx-auto max-w-3xl px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Privacy Policy</h1>
-          <p className="text-zinc-400 mb-8">Last updated: January 2025</p>
+      <Shell className="py-14 md:py-20">
+        <div className="legal measure-read">
+          <section>
+            <h2>1. Who we are, and what this covers</h2>
+            <p>
+              Kodedit is an AI studio and venture lab based in Accra, Ghana. In
+              this policy &ldquo;we&rdquo; and &ldquo;the studio&rdquo; mean
+              Kodedit, and &ldquo;you&rdquo; means anyone visiting this site or
+              contacting us through it.
+            </p>
+            <p>
+              This policy covers <strong>kodedit.io only</strong>. Our ventures
+              run as separate products with their own terms and their own
+              privacy policies. MedSys in particular handles clinical records on
+              behalf of the clinics that operate it. No patient data from MedSys,
+              or from any other venture, reaches this website or is governed by
+              this policy.
+            </p>
+          </section>
 
-          <div className="prose prose-invert prose-zinc max-w-none">
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">1. Introduction</h2>
-              <p className="text-zinc-400 mb-4">
-                Kodedit, Inc. (&quot;Kodedit,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI-powered development platform and related services.
+          <section>
+            <h2>2. What we collect</h2>
+            <p>We collect three things, and only three.</p>
+
+            <h3>2.1 The contact form</h3>
+            <p>
+              If you use the form on our contact page we receive your name, your
+              email address, your organisation if you choose to give it, and
+              whatever you write in the message field. It is sent to our inbox.
+              Nothing is stored on the website itself.
+            </p>
+
+            <h3>2.2 The project intake form</h3>
+            <p>
+              Our longer intake questionnaire collects the business and project
+              information you enter across its sections: contact details,
+              business description, project goals, branding preferences,
+              indicative budget range, timeline, and any notes you add. It
+              reaches us the same way, by email.
+            </p>
+            <p>
+              That form has an optional logo upload. Any file you attach is
+              transmitted with the submission but is not read, forwarded, or
+              retained by us. If you want us to have your logo, send it by email
+              instead.
+            </p>
+
+            <h3>2.3 Server logs</h3>
+            <p>
+              Our hosting provider records standard request logs: IP address,
+              browser user-agent string, the page requested, and a timestamp.
+              These are generated automatically by the infrastructure, are used
+              for security and diagnostics, and are held by the provider on a
+              short rolling window.
+            </p>
+          </section>
+
+          <section>
+            <h2>3. What we do not collect</h2>
+            <p>
+              This is worth stating plainly, because most sites cannot.
+            </p>
+            <ul>
+              <li>
+                <strong>No cookies.</strong> This site sets none — not for
+                analytics, not for preferences, not for anything.
+              </li>
+              <li>
+                <strong>No analytics.</strong> There is no web analytics, no
+                product analytics, and no tracking pixel on any page.
+              </li>
+              <li>
+                <strong>No third-party requests.</strong> Fonts, styles, images,
+                and scripts are all served from this domain. Loading a page here
+                contacts no other company.
+              </li>
+              <li>
+                <strong>No accounts, no payments.</strong> There is nothing to
+                sign into and nothing to pay for on this site.
+              </li>
+              <li>
+                <strong>No advertising or profiling.</strong> We do not build
+                profiles, run retargeting, or make automated decisions about you.
+              </li>
+            </ul>
+            <p>
+              We do not sell personal information and we do not share it for
+              anyone else&rsquo;s marketing.
+            </p>
+          </section>
+
+          <section>
+            <h2>4. Why we use it</h2>
+            <p>
+              We use what you send us to reply to you, to work out whether a
+              project is a fit for the studio, and to scope and quote the work if
+              it is. If we go on to work together, that correspondence becomes
+              part of the project record.
+            </p>
+            <p>
+              Where data protection law requires a legal basis, ours is our
+              legitimate interest in responding to enquiries about our work, and
+              in taking steps at your request before entering a contract. Server
+              logs rest on our legitimate interest in keeping the site secure and
+              working.
+            </p>
+          </section>
+
+          <section>
+            <h2>5. Who else processes it</h2>
+            <p>
+              We keep the list of companies that touch your information as short
+              as we can. At present it is three.
+            </p>
+            <ul>
+              <li>
+                <strong>Vercel</strong> — hosting and content delivery for this
+                site, and the source of the server logs described above.
+              </li>
+              <li>
+                <strong>Resend</strong> — delivery of contact-form messages to
+                our inbox.
+              </li>
+              <li>
+                <strong>Google</strong> — delivery and storage of intake-form
+                submissions and of our email correspondence generally.
+              </li>
+            </ul>
+            <p>
+              Each acts as a processor on our behalf under its own terms. Beyond
+              these, we disclose information only where the law requires it, or
+              where it is necessary to protect our rights or someone&rsquo;s
+              safety.
+            </p>
+          </section>
+
+          <section>
+            <h2>6. Confidentiality of what you tell us</h2>
+            <p>
+              People send us unreleased product plans and commercially sensitive
+              detail about how their business runs. We treat the contents of an
+              enquiry as confidential. We do not publish it and we do not discuss
+              it outside the studio.
+            </p>
+            <p>
+              We are glad to sign a non-disclosure agreement before you send
+              anything substantial. Ask, and we will.
+            </p>
+          </section>
+
+          <section>
+            <h2>7. How long we keep it</h2>
+            <p>
+              Enquiries that do not become projects are kept while they might
+              still be relevant — usually no more than two years — and then
+              deleted. Correspondence about work we actually did is kept for as
+              long as the engagement needs it, and afterwards for as long as our
+              tax and accounting obligations require.
+            </p>
+            <p>
+              You can ask us to delete your enquiry at any point and we will,
+              unless we are required to keep it.
+            </p>
+          </section>
+
+          <section>
+            <h2>8. Your rights</h2>
+            <p>
+              Depending on where you live, you may have the right to ask us to:
+            </p>
+            <ul>
+              <li>Tell you what we hold about you, and give you a copy.</li>
+              <li>Correct anything that is wrong.</li>
+              <li>Delete it.</li>
+              <li>Restrict or object to how we are using it.</li>
+              <li>Provide it in a portable, machine-readable form.</li>
+              <li>Withdraw consent, where we relied on consent.</li>
+            </ul>
+            <p>
+              Email us and we will action it. We do not charge for this and we
+              will not make it difficult.
+            </p>
+            <p>
+              If you are in Ghana, the Data Protection Act, 2012 (Act 843)
+              applies and you may complain to the Data Protection Commission. If
+              you are in the UK or the EEA, the UK GDPR or the GDPR applies and
+              you may complain to your supervisory authority. We would rather you
+              came to us first.
+            </p>
+          </section>
+
+          <section>
+            <h2>9. Where your information goes</h2>
+            <p>
+              The studio is based in Ghana and works remotely. Our hosting and
+              email providers operate infrastructure in the United States and
+              Europe, so information you send us is transferred and stored
+              outside your country of residence. Where the law requires
+              safeguards for those transfers, we rely on the standard contractual
+              terms our providers make available.
+            </p>
+          </section>
+
+          <section>
+            <h2>10. Security</h2>
+            <p>
+              The site is served entirely over HTTPS. Submissions are relayed
+              straight to email rather than accumulating in a database here,
+              which means there is no store of enquiries on this site to breach.
+              Access to the inbox is limited to the studio and protected by
+              two-factor authentication.
+            </p>
+            <p>
+              No system is perfectly secure. Please do not send us passwords,
+              payment card details, health records, or other special-category
+              information through these forms.
+            </p>
+          </section>
+
+          <section>
+            <h2>11. Children</h2>
+            <p>
+              This site is aimed at businesses and is not directed at children.
+              We do not knowingly collect information from anyone under 16. If
+              you believe a child has sent us something, tell us and we will
+              delete it.
+            </p>
+          </section>
+
+          <section>
+            <h2>12. Changes</h2>
+            <p>
+              If we change this policy we will update the date at the top of this
+              page. If a change materially affects how we handle information you
+              have already sent us, we will contact you about it directly.
+            </p>
+          </section>
+
+          <section>
+            <h2>13. Contact</h2>
+            <p>
+              Questions about this policy, or about anything we hold, go to:
+            </p>
+            <div>
+              <p>Kodedit</p>
+              <p>Accra, Ghana</p>
+              <p>
+                Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
               </p>
-              <p className="text-zinc-400">
-                By using Kodedit, you consent to the data practices described in this policy. If you do not agree with the terms of this Privacy Policy, please do not access or use our services.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">2. Information We Collect</h2>
-
-              <h3 className="text-lg font-medium mb-2 text-white">2.1 Information You Provide</h3>
-              <ul className="list-disc list-inside text-zinc-400 mb-4 space-y-2">
-                <li>Account information (name, email address, company name)</li>
-                <li>Payment information (processed securely by third-party providers)</li>
-                <li>Code and project data you submit for AI assistance</li>
-                <li>Communications with our support team</li>
-                <li>Feedback and survey responses</li>
-              </ul>
-
-              <h3 className="text-lg font-medium mb-2 text-white">2.2 Information Collected Automatically</h3>
-              <ul className="list-disc list-inside text-zinc-400 mb-4 space-y-2">
-                <li>Usage data (features used, interaction patterns, session duration)</li>
-                <li>Device information (browser type, operating system, device identifiers)</li>
-                <li>Log data (IP address, access times, pages viewed)</li>
-                <li>Performance metrics and error reports</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">3. How We Use Your Information</h2>
-              <p className="text-zinc-400 mb-4">We use the information we collect to:</p>
-              <ul className="list-disc list-inside text-zinc-400 mb-4 space-y-2">
-                <li>Provide, maintain, and improve our AI development tools</li>
-                <li>Process your requests and transactions</li>
-                <li>Send you technical notices, updates, and support messages</li>
-                <li>Respond to your comments and questions</li>
-                <li>Analyze usage patterns to improve our services</li>
-                <li>Train and improve our AI models (with appropriate safeguards)</li>
-                <li>Detect, prevent, and address technical issues and security threats</li>
-                <li>Comply with legal obligations</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">4. Code and Project Data</h2>
-              <p className="text-zinc-400 mb-4">
-                <strong className="text-white">Your code remains yours.</strong> We process code you submit to provide AI assistance, but we do not claim ownership of your code or use it to train models shared with other customers without your explicit consent.
-              </p>
-              <p className="text-zinc-400 mb-4">
-                For enterprise customers, we offer options for:
-              </p>
-              <ul className="list-disc list-inside text-zinc-400 mb-4 space-y-2">
-                <li>Data isolation and dedicated infrastructure</li>
-                <li>On-premises deployment</li>
-                <li>Custom data retention policies</li>
-                <li>Opting out of any model training programs</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">5. Data Sharing and Disclosure</h2>
-              <p className="text-zinc-400 mb-4">We may share your information with:</p>
-              <ul className="list-disc list-inside text-zinc-400 mb-4 space-y-2">
-                <li><strong className="text-white">Service providers:</strong> Third parties that help us operate our business (hosting, analytics, payment processing)</li>
-                <li><strong className="text-white">Business partners:</strong> With your consent, for integrated services</li>
-                <li><strong className="text-white">Legal requirements:</strong> When required by law or to protect our rights</li>
-                <li><strong className="text-white">Business transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
-              </ul>
-              <p className="text-zinc-400">
-                We do not sell your personal information to third parties.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">6. Data Security</h2>
-              <p className="text-zinc-400 mb-4">
-                We implement appropriate technical and organizational measures to protect your information, including:
-              </p>
-              <ul className="list-disc list-inside text-zinc-400 mb-4 space-y-2">
-                <li>Encryption in transit and at rest</li>
-                <li>Access controls and authentication</li>
-                <li>Regular security assessments</li>
-                <li>Employee training on data protection</li>
-                <li>Incident response procedures</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">7. Data Retention</h2>
-              <p className="text-zinc-400">
-                We retain your information for as long as necessary to provide our services and fulfill the purposes outlined in this policy. When you delete your account, we will delete or anonymize your personal information within 30 days, except where retention is required by law.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">8. Your Rights and Choices</h2>
-              <p className="text-zinc-400 mb-4">Depending on your location, you may have the right to:</p>
-              <ul className="list-disc list-inside text-zinc-400 mb-4 space-y-2">
-                <li>Access and receive a copy of your personal information</li>
-                <li>Correct inaccurate information</li>
-                <li>Delete your personal information</li>
-                <li>Object to or restrict processing</li>
-                <li>Data portability</li>
-                <li>Withdraw consent</li>
-              </ul>
-              <p className="text-zinc-400">
-                To exercise these rights, contact us at <a href="mailto:privacy@kodedit.com" className="text-[#fe3641] hover:underline">privacy@kodedit.com</a>.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">9. International Data Transfers</h2>
-              <p className="text-zinc-400">
-                We may transfer your information to countries other than your country of residence. When we do so, we ensure appropriate safeguards are in place, including standard contractual clauses approved by relevant authorities.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">10. Children&apos;s Privacy</h2>
-              <p className="text-zinc-400">
-                Our services are not directed to individuals under 16. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">11. Changes to This Policy</h2>
-              <p className="text-zinc-400">
-                We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy on this page and updating the &quot;Last updated&quot; date.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4 text-white">12. Contact Us</h2>
-              <p className="text-zinc-400">
-                If you have questions about this Privacy Policy or our data practices, please contact us at:
-              </p>
-              <div className="mt-4 p-4 rounded-lg border border-white/10 bg-white/5">
-                <p className="text-zinc-300">Kodedit, Inc.</p>
-                <p className="text-zinc-400">Email: <a href="mailto:privacy@kodedit.com" className="text-[#fe3641] hover:underline">privacy@kodedit.com</a></p>
-              </div>
-            </section>
-          </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-8">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Logo size="sm" />
-              <span className="text-sm text-zinc-400">© 2024 Kodedit, Inc.</span>
             </div>
-            <nav className="flex gap-6 text-sm">
-              <Link href="/privacy" className="text-white font-medium">Privacy</Link>
-              <Link href="/terms" className="text-zinc-400 hover:text-white transition-colors">Terms</Link>
-              <Link href="/about" className="text-zinc-400 hover:text-white transition-colors">About</Link>
-            </nav>
-          </div>
+          </section>
         </div>
-      </footer>
-    </div>
+      </Shell>
+    </>
   );
 }
