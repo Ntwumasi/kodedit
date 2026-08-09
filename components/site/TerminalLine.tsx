@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
-const TEXT = "building: medsys.healthcare — accra, gh";
+const TEXT = "building: medsys.healthcare";
 
 export function TerminalLine({ delay = 1100 }: { delay?: number }) {
   const reduced = useReducedMotion();

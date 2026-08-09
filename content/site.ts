@@ -4,7 +4,7 @@ export const SITE = {
   domain: "kodedit.io",
   url: "https://kodedit.io",
   email: "hello@kodedit.io",
-  location: "Accra · Remote",
+  location: "Remote",
   year: 2026,
   description:
     "Kodedit is an AI studio and venture lab. We research how intelligent systems behave in real workflows, then build and operate the software that runs them.",
@@ -37,7 +37,7 @@ export const HERO_SUPPORT =
 export const PROOF = [
   { value: "7", label: "departments connected" },
   { value: "1", label: "EMR platform in production" },
-  { value: "Accra, GH", label: "where it runs" },
+  { value: "Voice-first", label: "consultation capture" },
   { value: "Offline-first", label: "built for unstable power" },
 ] as const;
 
@@ -47,7 +47,7 @@ export const ETHOS = {
   support:
     "Clinics, pharmacies, freight yards, cooperatives. The work is harder, the users are less forgiving, and the outcome matters more than the launch.",
   founderNote:
-    "Kodedit started from a narrow frustration: the software running clinics in Accra was worse than the software running coffee shops in San Francisco, and nobody seemed to find that strange. MedSys is the first answer. There will be others.",
+    "Kodedit started from a narrow frustration: the software running clinics was worse than the software running coffee shops, and nobody seemed to find that strange. MedSys is the first answer. There will be others.",
   founderName: "Nokio Twumasi",
   founderRole: "Founder",
 };

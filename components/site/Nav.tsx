@@ -45,7 +45,7 @@ export function Nav() {
           className="text-[15px] leading-none"
           aria-label="Kodedit — home"
         >
-          <Wordmark blink={false} />
+          <Wordmark />
         </Link>
 
         {/* Desktop */}

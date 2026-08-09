@@ -13,7 +13,7 @@ import { CTA, SITE } from "@/content/site";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Ventures built and operated by the Kodedit studio. MedSys, an EMR platform running in clinics in Ghana, is venture 001.",
+    "Ventures built and operated by the Kodedit studio. MedSys, an EMR platform running in clinics today, is venture 001.",
   alternates: { canonical: "/work" },
   openGraph: { title: "Work — Kodedit", url: "/work" },
 };
@@ -62,8 +62,8 @@ export default function WorkPage() {
                   <dd className="text-[14px] text-ink">{medsys.sector}</dd>
                 </div>
                 <div>
-                  <dt className="t-mono-label mb-2">Region</dt>
-                  <dd className="text-[14px] text-ink">{medsys.region}</dd>
+                  <dt className="t-mono-label mb-2">Live since</dt>
+                  <dd className="text-[14px] text-ink">{medsys.year}</dd>
                 </div>
               </dl>
             </div>
@@ -117,10 +117,6 @@ export default function WorkPage() {
               <div>
                 <dt className="t-mono-label mb-2">Sector</dt>
                 <dd className="text-[14px] text-ink">{teaser.sector}</dd>
-              </div>
-              <div>
-                <dt className="t-mono-label mb-2">Region</dt>
-                <dd className="text-[14px] text-ink">{teaser.region}</dd>
               </div>
               <div>
                 <dt className="t-mono-label mb-2">Started</dt>

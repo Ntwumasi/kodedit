@@ -1,6 +1,6 @@
 A clinical form is an artifact of the database, not of the encounter. It exists because a table has columns. The doctor in front of a patient has no columns — they have a person describing a problem in the order the problem occurred to them.
 
-We spent time in consulting rooms in Accra before writing any of the MedSys consultation interface, and the pattern was consistent enough to design around. The doctor listens, writes a few lines on paper, and enters nothing into a computer during the visit. Data entry happens afterwards, in a batch, from memory and shorthand — or it does not happen at all. Every structured field we could have designed would have been filled in after the fact by someone reconstructing a conversation that ended twenty minutes ago.
+We spent time in consulting rooms before writing any of the MedSys consultation interface, and the pattern was consistent enough to design around. The doctor listens, writes a few lines on paper, and enters nothing into a computer during the visit. Data entry happens afterwards, in a batch, from memory and shorthand — or it does not happen at all. Every structured field we could have designed would have been filled in after the fact by someone reconstructing a conversation that ended twenty minutes ago.
 
 ## Forms force premature commitment
 
@@ -22,7 +22,7 @@ MedSys puts the structuring after the capture. The doctor speaks the consultatio
 
 **Push to talk, never always on.** An always-listening microphone in a consulting room is a privacy problem and a trust problem, and it captures the wrong things — the corridor conversation, the next patient's name. An explicit press-and-hold makes the recording boundary visible to both the doctor and the patient. It also gives us a clean signal about what the doctor considers part of the record.
 
-**Confirm numbers and drug names visually.** These are where speech recognition fails and where failure is most expensive. "Fifteen" and "fifty" are one phoneme apart and one order of magnitude apart. Drug names are dense with near-homophones, and in a clinic in Accra a consultation moves between English and Twi mid-sentence. We constrain drug recognition to the clinic's own formulary rather than an open vocabulary, and every dosage figure is surfaced as an editable chip that the doctor has to look at before the note can be signed. The system is allowed to guess; it is not allowed to guess quietly.
+**Confirm numbers and drug names visually.** These are where speech recognition fails and where failure is most expensive. "Fifteen" and "fifty" are one phoneme apart and one order of magnitude apart. Drug names are dense with near-homophones, and in a multilingual clinic a consultation routinely switches language mid-sentence. We constrain drug recognition to the clinic's own formulary rather than an open vocabulary, and every dosage figure is surfaced as an editable chip that the doctor has to look at before the note can be signed. The system is allowed to guess; it is not allowed to guess quietly.
 
 ## What we watch to know it is working
 

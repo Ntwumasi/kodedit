@@ -1,24 +1,20 @@
+import { Logo } from "./Logo";
+
 /**
- * kodedit▮ — the cursor block is one of only four places red is allowed.
+ * The mark plus the wordmark. The blinking cursor motif lives on the hero
+ * terminal line rather than here, so the nav carries one red element, not two.
  */
 export function Wordmark({
   className = "",
-  blink = true,
+  size = 20,
 }: {
   className?: string;
-  blink?: boolean;
+  size?: number;
 }) {
   return (
-    <span
-      className={`inline-flex items-baseline font-medium tracking-[-0.03em] text-ink ${className}`}
-    >
-      kodedit
-      <span
-        aria-hidden="true"
-        className={`ml-[2px] inline-block h-[0.78em] w-[0.42em] translate-y-[0.02em] bg-accent ${
-          blink ? "cursor-block" : ""
-        }`}
-      />
+    <span className={`inline-flex items-center gap-2.5 ${className}`}>
+      <Logo size={size} />
+      <span className="font-medium tracking-[-0.03em] text-ink">kodedit</span>
     </span>
   );
 }

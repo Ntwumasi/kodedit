@@ -37,10 +37,11 @@ export default function PrivacyPage() {
           <section>
             <h2>1. Who we are, and what this covers</h2>
             <p>
-              Kodedit is an AI studio and venture lab based in Accra, Ghana. In
-              this policy &ldquo;we&rdquo; and &ldquo;the studio&rdquo; mean
-              Kodedit, and &ldquo;you&rdquo; means anyone visiting this site or
-              contacting us through it.
+              Kodedit is an AI studio and venture lab, incorporated in Delaware,
+              United States, and working remotely. In this policy
+              &ldquo;we&rdquo; and &ldquo;the studio&rdquo; mean Kodedit, and
+              &ldquo;you&rdquo; means anyone visiting this site or contacting us
+              through it.
             </p>
             <p>
               This policy covers <strong>kodedit.io only</strong>. Our ventures
@@ -215,20 +216,19 @@ export default function PrivacyPage() {
               will not make it difficult.
             </p>
             <p>
-              If you are in Ghana, the Data Protection Act, 2012 (Act 843)
-              applies and you may complain to the Data Protection Commission. If
-              you are in the UK or the EEA, the UK GDPR or the GDPR applies and
-              you may complain to your supervisory authority. We would rather you
-              came to us first.
+              If you are in the UK or the EEA, the UK GDPR or the GDPR applies
+              and you may complain to your supervisory authority. Some US states
+              give residents comparable rights. Wherever you are, we would rather
+              you came to us first.
             </p>
           </section>
 
           <section>
             <h2>9. Where your information goes</h2>
             <p>
-              The studio is based in Ghana and works remotely. Our hosting and
-              email providers operate infrastructure in the United States and
-              Europe, so information you send us is transferred and stored
+              The studio works remotely and our hosting and email providers
+              operate infrastructure in the United States and Europe, so
+              information you send us is likely to be transferred and stored
               outside your country of residence. Where the law requires
               safeguards for those transfers, we rely on the standard contractual
               terms our providers make available.
@@ -277,7 +277,7 @@ export default function PrivacyPage() {
             </p>
             <div>
               <p>Kodedit</p>
-              <p>Accra, Ghana</p>
+              <p>Delaware, United States</p>
               <p>
                 Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
               </p>

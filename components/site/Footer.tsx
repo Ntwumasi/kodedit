@@ -10,7 +10,7 @@ export function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div>
             <Link href="/" className="text-[15px] leading-none">
-              <Wordmark blink={false} />
+              <Wordmark />
             </Link>
             <MonoLabel as="p" className="mt-4">
               {SITE.location}

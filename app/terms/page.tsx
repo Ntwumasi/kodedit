@@ -38,10 +38,10 @@ export default function TermsPage() {
           <section>
             <h2>1. What these terms cover</h2>
             <p>
-              Kodedit is an AI studio and venture lab based in Accra, Ghana.
-              These terms govern your use of <strong>kodedit.io</strong>. By
-              using the site you accept them. If you do not, please stop using
-              the site.
+              Kodedit is an AI studio and venture lab, incorporated in Delaware,
+              United States. These terms govern your use of{" "}
+              <strong>kodedit.io</strong>. By using the site you accept them. If
+              you do not, please stop using the site.
             </p>
             <p>Two things sit outside these terms, deliberately.</p>
             <ul>
@@ -221,11 +221,12 @@ export default function TermsPage() {
           <section>
             <h2>10. Governing law</h2>
             <p>
-              These terms are governed by the laws of the Republic of Ghana, and
-              the courts of Ghana have exclusive jurisdiction over any dispute
-              arising from them. If you are a consumer, this does not deprive you
-              of protections available under the mandatory law of the country
-              where you live.
+              These terms are governed by the laws of the State of Delaware,
+              United States, without regard to its conflict-of-laws rules, and
+              the state and federal courts located in Delaware have exclusive
+              jurisdiction over any dispute arising from them. If you are a
+              consumer, this does not deprive you of protections available under
+              the mandatory law of the country where you live.
             </p>
           </section>
 
@@ -255,7 +256,7 @@ export default function TermsPage() {
             <p>Questions about these terms go to:</p>
             <div>
               <p>Kodedit</p>
-              <p>Accra, Ghana</p>
+              <p>Delaware, United States</p>
               <p>
                 Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
               </p>

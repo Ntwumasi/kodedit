@@ -18,12 +18,12 @@ import { DEPARTMENTS, INTELLIGENCE, MEDSYS, VENTURES } from "@/content/work";
 import { SITE } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "MedSys — an EMR platform for clinics in Ghana",
+  title: "MedSys — an EMR platform for clinics that run on paper",
   description:
     "How Kodedit researched, built, and now operates MedSys: seven clinic departments on one patient record, voice-structured SOAP notes, and an offline-first architecture built for unstable power.",
   alternates: { canonical: "/work/medsys" },
   openGraph: {
-    title: "MedSys — an EMR platform for clinics in Ghana",
+    title: "MedSys — an EMR platform for clinics that run on paper",
     description:
       "Seven departments on one record. Voice-structured notes. Offline-first by design.",
     url: "/work/medsys",
@@ -66,10 +66,9 @@ export default function MedSysPage() {
           <h1 className="t-display max-w-[13ch] text-ink">{MEDSYS.name}</h1>
           <p className="t-lead measure mt-7">{MEDSYS.tagline}</p>
 
-          <dl className="mt-12 grid grid-cols-2 gap-y-7 border-t border-hairline pt-8 md:grid-cols-4">
+          <dl className="mt-12 grid grid-cols-2 gap-y-7 border-t border-hairline pt-8 md:grid-cols-3">
             {[
               { k: "Sector", v: MEDSYS.sector },
-              { k: "Region", v: MEDSYS.region },
               { k: "Engagement", v: "Studio venture" },
               { k: "Live since", v: MEDSYS.year },
             ].map((row) => (
@@ -106,8 +105,8 @@ export default function MedSysPage() {
                 </H2>
                 <div className="measure space-y-5">
                   <p className="t-body">
-                    A busy clinic in Accra runs on paper folders. The folder holds
-                    the history, the last prescription, and the laboratory slips
+                    A busy clinic runs on paper folders. The folder holds the
+                    history, the last prescription, and the laboratory slips
                     stapled inside the back cover. It works, in the narrow sense
                     that it has always worked, right up to the moment two
                     departments need it simultaneously.
@@ -124,9 +123,10 @@ export default function MedSysPage() {
                   <p className="t-body">
                     Clinics that had bought software mostly were not using it. The
                     systems on offer assumed reliable power, reliable bandwidth,
-                    and a clinician willing to type during a consultation. In
-                    Ghana all three assumptions are wrong, so the software became
-                    a data-entry chore performed after hours — or abandoned.
+                    and a clinician willing to type during a consultation. For
+                    these clinics all three assumptions are wrong, so the
+                    software became a data-entry chore performed after hours — or
+                    abandoned.
                   </p>
                 </div>
               </Reveal>
@@ -278,10 +278,10 @@ export default function MedSysPage() {
                 </H2>
                 <div className="measure space-y-5">
                   <p className="t-body">
-                    MedSys is in production in Ghana. The seven departments run on
-                    one record, the queue is the spine of the interface rather
-                    than a report, and the clinic keeps registering patients when
-                    the grid goes down.
+                    MedSys is in production. The seven departments run on one
+                    record, the queue is the spine of the interface rather than a
+                    report, and the clinic keeps registering patients when the
+                    grid goes down.
                   </p>
                   <p className="t-body">
                     The architectural decision that mattered most was the least

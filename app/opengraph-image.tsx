@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { MARKS } from "@/components/site/Logo";
 
 export const alt = "Kodedit — AI studio and venture lab";
 export const size = { width: 1200, height: 630 };
@@ -53,7 +54,33 @@ export default async function OgImage() {
 
         {/* top row */}
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ display: "flex", alignItems: "flex-end" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {/* The Kodedit mark, drawn from the shared brand grid. */}
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                width: 38,
+                height: 38,
+                borderRadius: 8,
+                background: "#FE3641",
+              }}
+            >
+              {MARKS.map(([x, y, w], i) => (
+                <div
+                  key={i}
+                  style={{
+                    position: "absolute",
+                    left: x * (38 / 32),
+                    top: y * (38 / 32),
+                    width: w * (38 / 32),
+                    height: 2 * (38 / 32),
+                    borderRadius: 2,
+                    background: "#FFFFFF",
+                  }}
+                />
+              ))}
+            </div>
             <span
               style={{
                 fontFamily: "Geist",
@@ -61,19 +88,11 @@ export default async function OgImage() {
                 lineHeight: 1,
                 color: "#F4F4F5",
                 letterSpacing: "-0.03em",
+                marginLeft: 13,
               }}
             >
               kodedit
             </span>
-            <div
-              style={{
-                width: 13,
-                height: 23,
-                background: "#FE3641",
-                marginLeft: 5,
-                marginBottom: 1,
-              }}
-            />
           </div>
         </div>
 
@@ -122,7 +141,7 @@ export default async function OgImage() {
                 letterSpacing: "0.08em",
               }}
             >
-              BUILDING: MEDSYS.HEALTHCARE — ACCRA, GH
+              BUILDING: MEDSYS.HEALTHCARE
             </span>
           </div>
           <span

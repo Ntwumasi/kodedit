@@ -7,7 +7,6 @@ export type Venture = {
   tagline: string;
   summary: string[];
   sector: string;
-  region: string;
   year: string;
   href?: string;
 };
@@ -19,14 +18,13 @@ export const VENTURES: Venture[] = [
     name: "MedSys",
     domain: "medsys.healthcare",
     status: "in production",
-    tagline: "A complete EMR platform for clinics in West Africa.",
+    tagline: "A complete EMR platform for clinics that still run on paper.",
     summary: [
       "Seven departments — front desk, doctor, nursing, laboratory, pharmacy, imaging, and billing — running on one record instead of seven paper trails.",
       "Voice dictation that structures a spoken consultation into a SOAP note, so a doctor can look at the patient instead of the keyboard.",
       "Offline-first by design: the clinic keeps working when the power and the network do not.",
     ],
     sector: "Healthcare",
-    region: "Ghana",
     year: "2024 —",
     href: "/work/medsys",
   },
@@ -35,13 +33,12 @@ export const VENTURES: Venture[] = [
     index: "Venture 002",
     name: "Unannounced",
     status: "in development",
-    tagline: "Supply and inventory for pharmacies outside major cities.",
+    tagline: "Supply and inventory for pharmacies without same-day resupply.",
     summary: [
       "Research in progress with dispensaries already running MedSys.",
       "The question we are answering first: what does a stock-out actually cost a clinic that cannot reorder same-day?",
     ],
     sector: "Health logistics",
-    region: "Ghana",
     year: "2026 —",
   },
 ];
